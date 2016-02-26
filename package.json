@@ -8,6 +8,7 @@
   "browser": "umd",
   "files": [
     "lib",
+    "modules",
     "npm-scripts",
     "umd"
   ],
