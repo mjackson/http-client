@@ -113,6 +113,21 @@ Adds the data in the given object as JSON to the request body.
 
 Adds the given object to the query string of `GET`/`HEAD` requests and as a `x-www-form-urlencoded` payload on all others.
 
+```js
+import { createFetch, method, params } from 'http-client'
+
+// Create a client that will append hello=world to the URL in the query string
+const fetch = createFetch(
+  params({ hello: 'world' })
+)
+
+// Create a client that will send hello=world as POST data
+const fetch = createFetch(
+  method('POST'),
+  params({ hello: 'world' })
+)
+```
+
 #### `getText(propertyName='textString')`
 
 Reads the response body as text and puts it on `response.textString`.
