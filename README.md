@@ -162,12 +162,13 @@ fetch(url).then(response => {
 
 #### `requestInfo()`
 
-Adds `requestURL` and `requestOptions` properties to the response (or error) object so you can inspect them. Mainly useful for testing/debugging.
+Adds `requestURL` and `requestOptions` properties to the response (or error) object so you can inspect them. Mainly useful for testing/debugging (should be put last in the list of middleware).
 
 ```js
 import { createFetch, requestInfo } from 'http-client'
 
 const fetch = createFetch(
+  // ...
   requestInfo()
 )
 
