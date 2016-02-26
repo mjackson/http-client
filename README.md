@@ -41,9 +41,29 @@ fetch('http://www.google.com/').then(response => {
 
 http-client provides a variety of middleware that may be used to extend the functionality of the client. Out of the box, http-client ships with the following middleware:
 
+#### `method(verb)`
+
+Sets the request method.
+
+```js
+import { createFetch, method } from 'http-client'
+
+const fetch = createFetch(
+  method('GET')
+)
+```
+
 #### `header(name, value)`
 
 Adds a header to the request.
+
+```js
+import { createFetch, header } from 'http-client'
+
+const fetch = createFetch(
+  header('Content-Type', 'application/json')
+)
+```
 
 #### `auth(value)`
 
@@ -56,6 +76,14 @@ Adds an OAuth2 bearer token to the request in the `Authorization` header.
 #### `accept(contentType)`
 
 Adds an `Accept` header to the request.
+
+```js
+import { createFetch, accept } from 'http-client'
+
+const fetch = createFetch(
+  accept('application/json')
+)
+```
 
 #### `acceptText()`
 
@@ -93,6 +121,30 @@ Reads the response body as text and puts it on `response.textString`.
 
 Reads the response body as JSON and puts it on `response.jsonString`.
 
+```js
+import { createFetch, getJSON } from 'http-client'
+
+const fetch = createFetch(
+  getJSON()
+)
+
+fetch(url).then(response => {
+  console.log(response.jsonString)
+})
+```
+
 #### `requestInfo()`
 
 Adds `requestURL` and `requestOptions` properties to the response (or error) object so you can inspect them. Mainly useful for testing/debugging.
+
+```js
+import { createFetch, requestInfo } from 'http-client'
+
+const fetch = createFetch(
+  requestInfo()
+)
+
+fetch(url).then(response => {
+  console.log(response.requestURL, response.requestOptions)
+})
+```
