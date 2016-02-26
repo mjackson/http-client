@@ -7,6 +7,7 @@
   "main": "lib",
   "browser": "umd",
   "files": [
+    ".babelrc",
     "lib",
     "modules",
     "npm-scripts",
