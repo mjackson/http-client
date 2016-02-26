@@ -10,7 +10,19 @@
 
 ## Installation
 
-    npm install mjackson/http-client
+Using [npm](https://www.npmjs.com/):
+
+    $ npm install --save mjackson/http-client
+
+Then with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else:
+
+```js
+// using an ES6 transpiler, like babel
+import { createFetch } from 'http-client'
+
+// not using an ES6 transpiler
+var createFetch = require('http-client').createFetch
+```
 
 ## Usage
 
