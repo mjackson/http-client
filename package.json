@@ -5,8 +5,10 @@
   "author": "Michael Jackson",
   "license": "MIT",
   "main": "lib",
+  "browser": "umd",
   "files": [
     "lib",
+    "npm-scripts",
     "umd"
   ],
   "scripts": {
