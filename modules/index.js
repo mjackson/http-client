@@ -25,6 +25,16 @@ function setHeader(options, name, value) {
 }
 
 /**
+ * Sets the request method.
+ */
+export function method(verb) {
+  return function (fetch, url, options={}) {
+    options.method = verb
+    return fetch(url, options)
+  }
+}
+
+/**
  * Adds a header to the request.
  */
 export function header(name, value) {
