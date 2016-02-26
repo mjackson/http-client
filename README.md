@@ -128,23 +128,35 @@ const fetch = createFetch(
 )
 ```
 
-#### `getText(propertyName='textString')`
+#### `parseText()`
 
 Reads the response body as text and puts it on `response.textString`.
 
-#### `getJSON(propertyName='jsonString')`
-
-Reads the response body as JSON and puts it on `response.jsonString`.
-
 ```js
-import { createFetch, getJSON } from 'http-client'
+import { createFetch, parseText } from 'http-client'
 
 const fetch = createFetch(
-  getJSON()
+  parseText()
 )
 
 fetch(url).then(response => {
-  console.log(response.jsonString)
+  console.log(response.textString)
+})
+```
+
+#### `parseJSON()`
+
+Reads the response body as JSON and puts it on `response.jsonData`.
+
+```js
+import { createFetch, parseJSON } from 'http-client'
+
+const fetch = createFetch(
+  parseJSON()
+)
+
+fetch(url).then(response => {
+  console.log(response.jsonData)
 })
 ```
 

@@ -151,24 +151,24 @@ function enhanceResponse(callback) {
 }
 
 /**
- * Adds the text of the response to response[propertyName].
+ * Adds the text of the response to response.textString.
  */
-export function getText(propertyName='textString') {
+export function parseText() {
   return enhanceResponse(response => {
     return response.text().then(text => {
-      response[propertyName] = text
+      response.textString = text
       return response
     })
   })
 }
 
 /**
- * Adds the JSON of the response to response[propertyName].
+ * Adds the JSON of the response to response.jsonData.
  */
-export function getJSON(propertyName='jsonString') {
+export function parseJSON() {
   return enhanceResponse(response => {
     return response.json().then(json => {
-      response[propertyName] = json
+      response.jsonData = json
       return response
     })
   })
