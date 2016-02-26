@@ -1,9 +1,9 @@
 import fetch from 'node-fetch'
-import QueryString from 'query-string'
+import { stringify } from 'query-string'
 import invariant from 'invariant'
 
 function stringifyQuery(query) {
-  return typeof query === 'string' ? query : QueryString.stringify(query)
+  return typeof query === 'string' ? query : stringify(query)
 }
 
 /**
