@@ -1,7 +1,7 @@
 {
   "name": "http-client",
   "version": "1.0.0",
-  "description": "A composable HTTP client using the JavaScript fetch API",
+  "description": "Compose HTTP clients using the JavaScript fetch API",
   "author": "Michael Jackson",
   "license": "MIT",
   "main": "lib",
