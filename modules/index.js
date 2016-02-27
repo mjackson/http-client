@@ -71,26 +71,26 @@ export function base(baseURL) {
 export function query(object) {
   const queryString = stringifyQuery(object)
 
-  return function (fetch, url, options) {
+  return (fetch, url, options) => {
     url += (url.indexOf('?') === -1 ? '?' : '&') + queryString
     return fetch(url, options)
   }
 }
 
 /**
- * Adds the given body to the request.
+ * Adds the given content to the request.
  */
-export function content(body, type) {
+export function body(content, contentType) {
   invariant(
-    typeof body === 'string',
-    'content(body) must be a string (for now)'
+    typeof content === 'string',
+    'body(content) must be a string (for now)'
   )
 
-  return function (fetch, url, options={}) {
-    options.body = body
+  return (fetch, url, options={}) => {
+    options.body = content
 
-    setHeader(options, 'Content-Type', type)
-    setHeader(options, 'Content-Length', body.length)
+    setHeader(options, 'Content-Type', contentType)
+    setHeader(options, 'Content-Length', content.length)
 
     return fetch(url, options)
   }
@@ -100,7 +100,7 @@ export function content(body, type) {
  * Adds an application/json payload to the request.
  */
 export function json(object) {
-  return content(
+  return body(
     typeof object === 'string' ? object : JSON.stringify(object),
     'application/json'
   )
@@ -117,7 +117,7 @@ export function params(object) {
     const method = (options.method || 'GET').toUpperCase()
     const middleware = (method === 'GET' || method === 'HEAD')
       ? query(queryString)
-      : content(queryString, 'x-www-form-urlencoded')
+      : body(queryString, 'x-www-form-urlencoded')
 
     return middleware(fetch, url, options)
   }

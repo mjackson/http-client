@@ -102,9 +102,17 @@ fetch('/customers/5') // GET https://api.stripe.com/v1/customers/5
 
 Adds the data in the given object (or string) to the query string of the request URL.
 
-#### `content(body, type)`
+#### `body(content, contentType)`
 
-Adds the given body to the request.
+Sets the given `content` string as the request body.
+
+```js
+import { createFetch, body } from 'http-client'
+
+const fetch = createFetch(
+  body(JSON.stringify(data), 'application/json')
+)
+```
 
 #### `json(object)`
 
