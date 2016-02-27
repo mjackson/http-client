@@ -100,16 +100,14 @@ export function query(object) {
  * Adds the given content to the request.
  */
 export function body(content, contentType) {
-  invariant(
-    typeof content === 'string',
-    'body(content) must be a string (for now)'
-  )
-
   return (fetch, url, options={}) => {
     options.body = content
 
-    setHeader(options, 'Content-Type', contentType)
-    setHeader(options, 'Content-Length', content.length)
+    if (contentType)
+      setHeader(options, 'Content-Type', contentType)
+
+    if (content.length != null)
+      setHeader(options, 'Content-Length', content.length)
 
     return fetch(url, options)
   }
