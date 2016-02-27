@@ -28,7 +28,7 @@ function setHeader(options, name, value) {
  * Sets the request method.
  */
 export function method(verb) {
-  return function (fetch, url, options={}) {
+  return (fetch, url, options={}) => {
     options.method = verb
     return fetch(url, options)
   }
@@ -38,7 +38,7 @@ export function method(verb) {
  * Adds a header to the request.
  */
 export function header(name, value) {
-  return function (fetch, url, options={}) {
+  return (fetch, url, options={}) => {
     setHeader(options, name, value)
     return fetch(url, options)
   }
@@ -113,7 +113,7 @@ export function json(object) {
 export function params(object) {
   const queryString = stringifyQuery(object)
 
-  return function (fetch, url, options={}) {
+  return (fetch, url, options={}) => {
     const method = (options.method || 'GET').toUpperCase()
     const middleware = (method === 'GET' || method === 'HEAD')
       ? query(queryString)
@@ -158,8 +158,8 @@ export function parseJSON() {
  * response/error. Mainly useful in testing/debugging.
  */
 export function requestInfo() {
-  return function (fetch, url, options) {
-    return fetch(url, options)
+  return (fetch, url, options) => {
+    fetch(url, options)
       .then(response => {
         response.requestURL = url
         response.requestOptions = options
