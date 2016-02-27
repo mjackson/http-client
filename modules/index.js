@@ -52,13 +52,6 @@ export function auth(value) {
 }
 
 /**
- * Adds an OAuth2 bearer token to the request.
- */
-export function bearerToken(token) {
-  return auth('Bearer ' + token)
-}
-
-/**
  * Adds an Accept header to the request.
  */
 export function accept(contentType) {

@@ -69,10 +69,6 @@ const fetch = createFetch(
 
 Adds an `Authorization` header to the request.
 
-#### `bearerToken(token)`
-
-Adds an OAuth2 bearer token to the request in the `Authorization` header.
-
 #### `accept(contentType)`
 
 Adds an `Accept` header to the request.
