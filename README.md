@@ -72,6 +72,14 @@ const fetch = createFetch(
 
 Adds an `Authorization` header to the request.
 
+```js
+import { createFetch, auth } from 'http-client'
+
+const fetch = createFetch(
+  auth('Bearer ' + oauth2Token)
+)
+```
+
 #### `accept(contentType)`
 
 Adds an `Accept` header to the request.
