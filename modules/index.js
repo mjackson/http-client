@@ -2,22 +2,19 @@ import fetch from 'node-fetch'
 import { stringify } from 'query-string'
 import invariant from 'invariant'
 
-function stringifyQuery(query) {
-  return typeof query === 'string' ? query : stringify(query)
-}
+const stringifyQuery = (query) =>
+  (typeof query === 'string' ? query : stringify(query))
 
 /**
  * Creates a middleware "stack" function using all arguments.
  */
-export function createStack() {
-  const middlewares = Array.prototype.slice.call(arguments, 0)
-
+export const createStack = (...middleware) => {
   invariant(
-    middlewares.length,
+    middleware.length,
     'createStack needs at least one middleware'
   )
 
-  return middlewares.reduceRight((inner, outer) => (
+  return middleware.reduceRight((inner, outer) => (
     (fetch, url, options) => (
       outer((url, options) => inner(fetch, url, options), url, options)
     )
@@ -27,67 +24,59 @@ export function createStack() {
 /**
  * Creates a fetch function using all arguments as middleware.
  */
-export function createFetch() {
-  if (arguments.length === 0)
+export const createFetch = (...middleware) => {
+  if (middleware.length === 0)
     return fetch
 
-  const stack = createStack.apply(this, arguments)
+  const stack = createStack(...middleware)
 
   return (url, options) => (
     stack(fetch, url, options)
   )
 }
 
-function setHeader(options, name, value) {
-  const headers = options.headers || (options.headers = {})
-  headers[name] = value
-}
+const setHeader = (options, name, value) =>
+  (options.headers || (options.headers = {}))[name] = value
 
 /**
  * Sets the request method.
  */
-export function method(verb) {
-  return (fetch, url, options={}) => {
+export const method = (verb) =>
+  (fetch, url, options={}) => {
     options.method = verb
     return fetch(url, options)
   }
-}
 
 /**
  * Adds a header to the request.
  */
-export function header(name, value) {
-  return (fetch, url, options={}) => {
+export const header = (name, value) =>
+  (fetch, url, options={}) => {
     setHeader(options, name, value)
     return fetch(url, options)
   }
-}
 
 /**
  * Adds an Authorization header to the request.
  */
-export function auth(value) {
-  return header('Authorization', value)
-}
+export const auth = (value) => header('Authorization', value)
 
 /**
  * Adds an Accept header to the request.
  */
-export function accept(contentType) {
-  return header('Accept', contentType)
-}
+export const accept = (contentType) => header('Accept', contentType)
 
 /**
  * Adds the given string at the front of the request URL.
  */
-export function base(baseURL) {
-  return (fetch, url, options) => fetch(baseURL + url, options)
-}
+export const base = (baseURL) =>
+  (fetch, url, options) =>
+    fetch(baseURL + url, options)
 
 /**
  * Adds the given object to the query string in the request.
  */
-export function query(object) {
+export const query = (object) => {
   const queryString = stringifyQuery(object)
 
   return (fetch, url, options) => {
@@ -99,7 +88,7 @@ export function query(object) {
 /**
  * Adds the given content to the request.
  */
-export function body(content, contentType) {
+export const body = (content, contentType) => {
   return (fetch, url, options={}) => {
     options.body = content
 
@@ -116,7 +105,7 @@ export function body(content, contentType) {
 /**
  * Adds an application/json payload to the request.
  */
-export function json(object) {
+export const json = (object) => {
   return body(
     typeof object === 'string' ? object : JSON.stringify(object),
     'application/json'
@@ -127,7 +116,7 @@ export function json(object) {
  * Adds the given object to the query string of GET/HEAD requests
  * and as a x-www-form-urlencoded payload on all others.
  */
-export function params(object) {
+export const params = (object) => {
   const queryString = stringifyQuery(object)
 
   return (fetch, url, options={}) => {
@@ -140,27 +129,26 @@ export function params(object) {
   }
 }
 
-function enhanceResponse(callback) {
-  return (fetch, url, options) => fetch(url, options).then(callback)
-}
+const enhanceResponse = (callback) =>
+  (fetch, url, options) =>
+    fetch(url, options).then(callback)
 
 /**
  * Adds the text of the response to response.textString.
  */
-export function parseText() {
-  return enhanceResponse(response => (
+export const parseText = () =>
+  enhanceResponse(response => (
     response.text().then(text => {
       response.textString = text
       return response
     })
   ))
-}
 
 /**
  * Adds the JSON of the response to response.jsonData.
  */
-export function parseJSON() {
-  return enhanceResponse(response => (
+export const parseJSON = () =>
+  enhanceResponse(response => (
     response.json()
       .then(json => {
         response.jsonData = json
@@ -169,14 +157,13 @@ export function parseJSON() {
         throw new Error('Error parsing JSON: ' + error.stack)
       })
   ))
-}
 
 /**
  * Adds the requestURL and requestOptions properties to the
  * response/error. Mainly useful in testing/debugging.
  */
-export function requestInfo() {
-  return (fetch, url, options) => {
+export const requestInfo = () =>
+  (fetch, url, options) =>
     fetch(url, options)
       .then(response => {
         response.requestURL = url
@@ -188,5 +175,3 @@ export function requestInfo() {
         error.requestOptions = options
         throw error
       })
-  }
-}
