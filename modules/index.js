@@ -58,6 +58,12 @@ export function accept(contentType) {
   return header('Accept', contentType)
 }
 
+/**
+ * Adds the given string at the front of the request URL.
+ */
+export function base(baseURL) {
+  return (fetch, url, options) => fetch(baseURL + url, options)
+}
 
 /**
  * Adds the given object to the query string in the request.

@@ -81,6 +81,20 @@ const fetch = createFetch(
 )
 ```
 
+#### `base(baseURL)`
+
+Adds the given `baseURL` to the beginning of the request URL.
+
+```js
+import { createFetch, base } from 'http-client'
+
+const fetch = createFetch(
+  base('https://api.stripe.com/v1')
+)
+
+fetch('/customers/5') // GET https://api.stripe.com/v1/customers/5
+```
+
 #### `query(object)`
 
 Adds the data in the given object (or string) to the query string of the request URL.
