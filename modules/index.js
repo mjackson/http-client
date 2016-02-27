@@ -12,6 +12,11 @@ function stringifyQuery(query) {
 export function createStack() {
   const middlewares = Array.prototype.slice.call(arguments, 0)
 
+  invariant(
+    middlewares.length,
+    'createStack needs at least one middleware'
+  )
+
   return middlewares.reduceRight((inner, outer) => (
     (fetch, url, options) => (
       outer((url, options) => inner(fetch, url, options), url, options)
