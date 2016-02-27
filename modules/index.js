@@ -14,11 +14,10 @@ export const createStack = (...middleware) => {
     'createStack needs at least one middleware'
   )
 
-  return middleware.reduceRight((inner, outer) => (
-    (fetch, url, options) => (
+  return middleware.reduceRight((inner, outer) =>
+    (fetch, url, options) =>
       outer((url, options) => inner(fetch, url, options), url, options)
-    )
-  ))
+  )
 }
 
 /**
@@ -30,9 +29,8 @@ export const createFetch = (...middleware) => {
 
   const stack = createStack(...middleware)
 
-  return (url, options) => (
+  return (url, options) =>
     stack(fetch, url, options)
-  )
 }
 
 const setHeader = (options, name, value) =>
