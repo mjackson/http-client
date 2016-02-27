@@ -7,16 +7,30 @@ function stringifyQuery(query) {
 }
 
 /**
+ * Creates a middleware "stack" function using all arguments.
+ */
+export function createStack() {
+  const middlewares = Array.prototype.slice.call(arguments, 0)
+
+  return middlewares.reduceRight((inner, outer) => (
+    (fetch, url, options) => (
+      outer((url, options) => inner(fetch, url, options), url, options)
+    )
+  ))
+}
+
+/**
  * Creates a fetch function using all arguments as middleware.
  */
 export function createFetch() {
-  const middleware = Array.prototype.slice.call(arguments, 0)
+  if (arguments.length === 0)
+    return fetch
 
-  return middleware.reduceRight((fetch, middleware) => {
-    return function (url, options) {
-      return middleware(fetch, url, options)
-    }
-  }, fetch)
+  const stack = createStack.apply(this, arguments)
+
+  return (url, options) => (
+    stack(fetch, url, options)
+  )
 }
 
 function setHeader(options, name, value) {

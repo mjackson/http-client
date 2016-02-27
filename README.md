@@ -185,3 +185,29 @@ fetch(url).then(response => {
   console.log(response.requestURL, response.requestOptions)
 })
 ```
+
+## Stacks
+
+Middleware may be combined together into re-usable middleware "stacks" using `createStack`. A stack is itself a middleware that is composed of one or more other pieces of middleware.
+
+This is useful when you have a common set of functionality that you'd like to share between several different `fetch` methods, e.g.:
+
+```js
+import { createStack, createFetch, header, base, parseJSON } from 'http-client'
+
+const commonStack = createStack(
+  header('X-Auth-Key', key),
+  header('X-Auth-Email', email),
+  base('https://api.cloudflare.com/client/v4'),
+  parseJSON()
+)
+
+// This fetch function can be used standalone...
+const fetch = createFetch(commonStack)
+
+// ...or we can add further middleware to create another fetch function!
+const fetchSinceBeginningOf2015 = createFetch(
+  commonStack,
+  query({ since: '2015-01-01T00:00:00Z' })
+)
+```
