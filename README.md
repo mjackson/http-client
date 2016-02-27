@@ -24,20 +24,23 @@ var createFetch = require('http-client').createFetch
 
 ## Usage
 
-http-client simplifies the process of creating flexible HTTP clients that work in both node and the browser. You create your own `fetch` function using the `createFetch` method, optionally passing middleware as arguments.
+http-client simplifies the process of creating flexible HTTP clients that work in both node and the browser. You create your own `fetch` function using the `createFetch` method, optionally passing [middleware](#middleware) as arguments.
 
 ```js
-import { createFetch, query, requestInfo } from 'http-client'
+import { createFetch, base, accept, parseJSON } from 'http-client'
 
 const fetch = createFetch(
-  query({ hello: 'world' }),  // Append a query string to the request URL
-  requestInfo()               // Add requestURL & requestOptions properties to the response
+  base('https://api.stripe.com/v1'),  // Prefix all request URLs
+  accept('application/json'),         // Set "Accept: application/json" in the request headers
+  parseJSON()                         // Read the response as JSON and put it in response.jsonData
 )
 
-fetch('http://www.google.com/').then(response => {
-  console.log(response.requestURL) // http://www.google.com/?hello=world
+fetch('/customers/5').then(response => {
+  console.log(response.jsonData)
 })
 ```
+
+## Middleware
 
 http-client provides a variety of middleware that may be used to extend the functionality of the client. Out of the box, http-client ships with the following middleware:
 
@@ -49,7 +52,7 @@ Sets the request method.
 import { createFetch, method } from 'http-client'
 
 const fetch = createFetch(
-  method('GET')
+  method('POST')
 )
 ```
 
