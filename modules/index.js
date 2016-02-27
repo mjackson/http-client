@@ -124,33 +124,34 @@ export function params(object) {
 }
 
 function enhanceResponse(callback) {
-  return function (fetch, url, options) {
-    return fetch(url, options).then(callback)
-  }
+  return (fetch, url, options) => fetch(url, options).then(callback)
 }
 
 /**
  * Adds the text of the response to response.textString.
  */
 export function parseText() {
-  return enhanceResponse(response => {
-    return response.text().then(text => {
+  return enhanceResponse(response => (
+    response.text().then(text => {
       response.textString = text
       return response
     })
-  })
+  ))
 }
 
 /**
  * Adds the JSON of the response to response.jsonData.
  */
 export function parseJSON() {
-  return enhanceResponse(response => {
-    return response.json().then(json => {
-      response.jsonData = json
-      return response
-    })
-  })
+  return enhanceResponse(response => (
+    response.json()
+      .then(json => {
+        response.jsonData = json
+        return response
+      }, error => {
+        throw new Error('Error parsing JSON: ' + error.stack)
+      })
+  ))
 }
 
 /**
