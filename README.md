@@ -81,18 +81,6 @@ const fetch = createFetch(
 )
 ```
 
-#### `acceptText()`
-
-Shorthand for `accept('text/plain')`.
-
-#### `acceptJSON()`
-
-Shorthand for `accept('application/json')`.
-
-#### `acceptHTML()`
-
-Shorthand for `accept('text/html')`.
-
 #### `query(object)`
 
 Adds the data in the given object (or string) to the query string of the request URL.

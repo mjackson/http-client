@@ -58,26 +58,6 @@ export function accept(contentType) {
   return header('Accept', contentType)
 }
 
-/**
- * Shorthand for accept('text/plain').
- */
-export function acceptText() {
-  return accept('text/plain')
-}
-
-/**
- * Shorthand for accept('application/json').
- */
-export function acceptJSON() {
-  return accept('application/json')
-}
-
-/**
- * Shorthand for accept('text/html').
- */
-export function acceptHTML() {
-  return accept('text/html')
-}
 
 /**
  * Adds the given object to the query string in the request.
