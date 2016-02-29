@@ -18,7 +18,8 @@
     "build-lib": "rimraf lib && babel ./modules -d lib",
     "build-umd": "NODE_ENV=production webpack -p modules/index.js umd/HTTPClient.js",
     "prepublish": "npm run build",
-    "postinstall": "node ./npm-scripts/postinstall.js"
+    "postinstall": "node ./npm-scripts/postinstall.js",
+    "test": "karma start"
   },
   "dependencies": {
     "node-fetch": "^1.3.3",
@@ -30,8 +31,17 @@
     "babel-loader": "^6.2.3",
     "babel-preset-es2015": "^6.5.0",
     "es6-promise": "^3.1.2",
+    "expect": "^1.14.0",
     "exports-loader": "^0.6.3",
     "imports-loader": "^0.6.5",
+    "karma": "^0.13.21",
+    "karma-browserstack-launcher": "^0.1.10",
+    "karma-chrome-launcher": "^0.2.2",
+    "karma-mocha": "^0.2.2",
+    "karma-mocha-reporter": "^1.2.3",
+    "karma-sourcemap-loader": "^0.3.7",
+    "karma-webpack": "^1.7.0",
+    "mocha": "^2.4.5",
     "rimraf": "^2.5.2",
     "webpack": "^1.12.14",
     "whatwg-fetch": "^0.11.0"
