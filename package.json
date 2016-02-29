@@ -21,7 +21,6 @@
     "postinstall": "node ./npm-scripts/postinstall.js"
   },
   "dependencies": {
-    "invariant": "^2.2.0",
     "node-fetch": "^1.3.3",
     "query-string": "^3.0.0"
   },

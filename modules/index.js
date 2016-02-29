@@ -1,22 +1,23 @@
 import fetch from 'node-fetch'
 import { stringify } from 'query-string'
-import invariant from 'invariant'
 
 const stringifyQuery = (query) =>
   (typeof query === 'string' ? query : stringify(query))
+
+const emptyStack = (fetch, url, options) =>
+  fetch(url, options)
 
 /**
  * Creates a middleware "stack" function using all arguments.
  */
 export const createStack = (...middleware) => {
-  invariant(
-    middleware.length,
-    'createStack needs at least one middleware'
-  )
+  if (middleware.length === 0)
+    return emptyStack
 
-  return middleware.reduceRight((inner, outer) =>
-    (fetch, url, options) =>
-      outer((url, options) => inner(fetch, url, options), url, options)
+  return middleware.reduceRight(
+    (inner, outer) =>
+      (fetch, url, options) =>
+        outer((url, options) => inner(fetch, url, options), url, options)
   )
 }
 
