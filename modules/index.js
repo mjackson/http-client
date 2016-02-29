@@ -1,5 +1,7 @@
-import fetch from 'node-fetch'
 import { stringify } from 'query-string'
+
+if (typeof window !== 'object')
+  global.fetch = require('node-fetch')
 
 const stringifyQuery = (query) =>
   (typeof query === 'string' ? query : stringify(query))
