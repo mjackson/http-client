@@ -93,11 +93,11 @@ export const body = (content, contentType) => {
   return (fetch, url, options={}) => {
     options.body = content
 
-    if (contentType)
-      setHeader(options, 'Content-Type', contentType)
-
     if (content.length != null)
       setHeader(options, 'Content-Length', content.length)
+
+    if (contentType)
+      setHeader(options, 'Content-Type', contentType)
 
     return fetch(url, options)
   }
@@ -115,7 +115,7 @@ export const json = (object) => {
 
 /**
  * Adds the given object to the query string of GET/HEAD requests
- * and as a x-www-form-urlencoded payload on all others.
+ * and as a application/x-www-form-urlencoded payload on all others.
  */
 export const params = (object) => {
   const queryString = stringifyQuery(object)
@@ -124,7 +124,7 @@ export const params = (object) => {
     const method = (options.method || 'GET').toUpperCase()
     const middleware = (method === 'GET' || method === 'HEAD')
       ? query(queryString)
-      : body(queryString, 'x-www-form-urlencoded')
+      : body(queryString, 'application/x-www-form-urlencoded')
 
     return middleware(fetch, url, options)
   }
