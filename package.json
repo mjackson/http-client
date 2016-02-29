@@ -16,7 +16,7 @@
   "scripts": {
     "build": "npm run build-lib && npm run build-umd",
     "build-lib": "rimraf lib && babel ./modules -d lib",
-    "build-umd": "NODE_ENV=production webpack -p modules/index.js umd/HTTPClient.js",
+    "build-umd": "webpack -p modules/index.js umd/HTTPClient.js",
     "prepublish": "npm run build",
     "postinstall": "node ./npm-scripts/postinstall.js",
     "test": "karma start"

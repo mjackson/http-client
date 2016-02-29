@@ -81,8 +81,9 @@ module.exports = function (config) {
         new webpack.DefinePlugin({
           'typeof window': JSON.stringify('object')
         }),
-        new webpack.DefinePlugin({
-          'process.env.NODE_ENV': JSON.stringify('test')
+        new webpack.ProvidePlugin({
+          'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
+          'Promise': 'es6-promise'
         })
       ]
     },
