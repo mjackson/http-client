@@ -11,9 +11,10 @@
     "umd"
   ],
   "scripts": {
-    "build": "npm run build-lib && npm run build-umd",
+    "build": "npm run build-lib && npm run build-umd && npm run build-min",
     "build-lib": "rimraf lib && babel ./modules -d lib --ignore '__tests__'",
-    "build-umd": "webpack -p modules/index.js umd/HTTPClient.js",
+    "build-min": "webpack -p modules/index.js umd/HTTPClient.min.js",
+    "build-umd": "webpack modules/index.js umd/HTTPClient.js",
     "prepublish": "npm run build",
     "test": "karma start"
   },
