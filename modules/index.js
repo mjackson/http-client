@@ -60,12 +60,14 @@ export const header = (name, value) =>
 /**
  * Adds an Authorization header to the request.
  */
-export const auth = (value) => header('Authorization', value)
+export const auth = (value) =>
+  header('Authorization', value)
 
 /**
  * Adds an Accept header to the request.
  */
-export const accept = (contentType) => header('Accept', contentType)
+export const accept = (contentType) =>
+  header('Accept', contentType)
 
 /**
  * Adds the given string at the front of the request URL.
@@ -89,8 +91,8 @@ export const query = (object) => {
 /**
  * Adds the given content to the request.
  */
-export const body = (content, contentType) => {
-  return (fetch, url, options={}) => {
+export const body = (content, contentType) =>
+  (fetch, url, options={}) => {
     options.body = content
 
     if (content.length != null)
@@ -101,17 +103,15 @@ export const body = (content, contentType) => {
 
     return fetch(url, options)
   }
-}
 
 /**
  * Adds an application/json payload to the request.
  */
-export const json = (object) => {
-  return body(
+export const json = (object) =>
+  body(
     typeof object === 'string' ? object : JSON.stringify(object),
     'application/json'
   )
-}
 
 /**
  * Adds the given object to the query string of GET/HEAD requests
