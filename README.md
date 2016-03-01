@@ -1,6 +1,12 @@
-# http-client
+# http-client [![Travis][build-badge]][build] [![npm package][npm-badge]][npm]
 
-[http-client](https://github.com/mjackson/http-client) lets you compose HTTP clients using JavaScript's [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). This library has the following goals:
+[build-badge]: https://img.shields.io/travis/mjackson/http-client/master.svg?style=flat-square
+[build]: https://travis-ci.org/mjackson/http-client
+
+[npm-badge]: https://img.shields.io/npm/v/http-client.svg?style=flat-square
+[npm]: https://www.npmjs.org/package/http-client
+
+[http-client](https://www.npmjs.com/package/http-client) lets you compose HTTP clients using JavaScript's [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). This library has the following goals:
 
   - Preserve the full capabilities of the fetch API
   - Provide an extendable  middleware API
