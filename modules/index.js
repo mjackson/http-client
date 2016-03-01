@@ -16,7 +16,7 @@ const emptyStack = (fetch, url, options) =>
 /**
  * Creates a middleware "stack" function using all arguments.
  */
-export const createStack = (...middleware) => {
+const createStack = (...middleware) => {
   if (middleware.length === 0)
     return emptyStack
 
@@ -26,6 +26,8 @@ export const createStack = (...middleware) => {
         outer((url, options) => inner(fetch, url, options), url, options)
   )
 }
+
+export { createStack }
 
 /**
  * Creates a fetch function using all arguments as middleware.
