@@ -28,6 +28,10 @@ import { createFetch } from 'http-client'
 var createFetch = require('http-client').createFetch
 ```
 
+You'll need to shim `window.fetch` in [browsers that do not support it](http://caniuse.com/#feat=fetch) (Safari and IE). [github/fetch](https://github.com/github/fetch) is a great polyfill.
+
+In node, http-client automatically uses the [node-fetch](https://github.com/bitinn/node-fetch) library under the hood so no extra configuration is necessary. Be sure to read about the [known differences](https://github.com/bitinn/node-fetch/blob/master/LIMITS.md) between node-fetch and [the fetch spec](https://fetch.spec.whatwg.org/).
+
 ## Usage
 
 http-client simplifies the process of creating flexible HTTP clients that work in both node and the browser. You create your own `fetch` function using the `createFetch` method, optionally passing [middleware](#middleware) as arguments.
