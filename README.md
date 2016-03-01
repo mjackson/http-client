@@ -16,7 +16,7 @@
 
 Using [npm](https://www.npmjs.com/):
 
-    $ npm install --save mjackson/http-client
+    $ npm install --save http-client
 
 Then with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else:
 
