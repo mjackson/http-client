@@ -7,10 +7,7 @@
   "main": "lib",
   "browser": "umd/HTTPClient.js",
   "files": [
-    ".babelrc",
     "lib",
-    "modules",
-    "npm-scripts",
     "umd"
   ],
   "scripts": {
@@ -18,7 +15,6 @@
     "build-lib": "rimraf lib && babel ./modules -d lib --ignore '__tests__'",
     "build-umd": "webpack -p modules/index.js umd/HTTPClient.js",
     "prepublish": "npm run build",
-    "postinstall": "node ./npm-scripts/postinstall.js",
     "test": "karma start"
   },
   "dependencies": {
