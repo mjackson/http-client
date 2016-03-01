@@ -27,6 +27,11 @@ const createStack = (...middleware) => {
   )
 }
 
+// TODO: BEWARE-CRAZY DRAGONS BE LURKING HERE. If we use `export const createStack`
+// above (like we do everywhere else in this file) for some reason the `middleware`
+// is an array of the arguments passed to webpack's module closure, not those that
+// were passed to createStack. When we use this export down below instead, we get
+// the behavior we expect! Not sure yet if this is a babel or webpack bug...
 export { createStack }
 
 /**
