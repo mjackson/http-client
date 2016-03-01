@@ -5,17 +5,16 @@
   "author": "Michael Jackson",
   "license": "MIT",
   "main": "lib",
-  "browser": "umd/HTTPClient.js",
+  "browser": "umd/HTTPClient.min.js",
   "files": [
     "lib",
     "umd"
   ],
   "scripts": {
-    "build": "npm run build-lib && npm run build-umd && npm run build-min",
-    "build-lib": "rimraf lib && babel ./modules -d lib --ignore '__tests__'",
+    "build-cjs": "rimraf lib && babel ./modules -d lib --ignore '__tests__'",
     "build-min": "webpack -p modules/index.js umd/HTTPClient.min.js",
     "build-umd": "webpack modules/index.js umd/HTTPClient.js",
-    "prepublish": "npm run build",
+    "prepublish": "node ./scripts/build.js",
     "test": "karma start"
   },
   "dependencies": {

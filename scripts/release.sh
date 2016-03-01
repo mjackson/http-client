@@ -29,9 +29,6 @@ next_ref="v$next_version"
 npm test -- --single-run
 
 update_version 'package.json' $next_version
-
-node scripts/build.js
-
 git commit -am "Version $next_version"
 
 git tag $next_ref
