@@ -17,10 +17,6 @@ module.exports = {
     new webpack.IgnorePlugin(/node-fetch/),
     new webpack.DefinePlugin({
       'typeof window': JSON.stringify('object')
-    }),
-    new webpack.ProvidePlugin({
-      'fetch': 'imports?this=>global!exports?global.fetch!whatwg-fetch',
-      'Promise': 'es6-promise'
     })
   ]
 

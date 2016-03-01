@@ -1,7 +1,11 @@
 import { stringify } from 'query-string'
 
-if (typeof window !== 'object')
-  global.fetch = require('node-fetch')
+let globalFetch
+if (typeof fetch === 'function') {
+  globalFetch = fetch
+} else if (typeof window !== 'object') {
+  globalFetch = require('node-fetch')
+}
 
 const stringifyQuery = (query) =>
   (typeof query === 'string' ? query : stringify(query))
@@ -33,7 +37,7 @@ export const createFetch = (...middleware) => {
   const stack = createStack(...middleware)
 
   return (url, options) =>
-    stack(fetch, url, options)
+    stack(globalFetch, url, options)
 }
 
 const setHeader = (options, name, value) =>
