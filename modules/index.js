@@ -146,24 +146,24 @@ const enhanceResponse = (callback) =>
     fetch(url, options).then(callback)
 
 /**
- * Adds the text of the response to response.textString.
+ * Adds the text of the response to response[propertyName].
  */
-export const parseText = () =>
+export const parseText = (propertyName='textString') =>
   enhanceResponse(response => (
     response.text().then(text => {
-      response.textString = text
+      response[propertyName] = text
       return response
     })
   ))
 
 /**
- * Adds the JSON of the response to response.jsonData.
+ * Adds the JSON of the response to response[propertyName].
  */
-export const parseJSON = () =>
+export const parseJSON = (propertyName='jsonData') =>
   enhanceResponse(response => (
     response.json()
       .then(json => {
-        response.jsonData = json
+        response[propertyName] = json
         return response
       }, error => {
         throw new Error('Error parsing JSON: ' + error.stack)

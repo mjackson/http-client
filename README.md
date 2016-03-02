@@ -155,7 +155,7 @@ const fetch = createFetch(
 )
 ```
 
-#### `parseText()`
+#### `parseText(propertyName='textString')`
 
 Reads the response body as text and puts it on `response.textString`.
 
@@ -171,7 +171,7 @@ fetch(url).then(response => {
 })
 ```
 
-#### `parseJSON()`
+#### `parseJSON(propertyName='jsonData')`
 
 Reads the response body as JSON and puts it on `response.jsonData`.
 
