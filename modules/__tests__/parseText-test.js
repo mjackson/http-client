@@ -2,7 +2,7 @@ import expect from 'expect'
 import { parseText } from '../index'
 
 const echoText = (text) =>
-  (url, options) =>
+  () =>
     Promise.resolve({ text: () => Promise.resolve(text) })
 
 describe('parseText', () => {

@@ -2,7 +2,7 @@ import expect from 'expect'
 import { parseJSON } from '../index'
 
 const echoJSON = (json) =>
-  (url, options) =>
+  () =>
     Promise.resolve({ json: () => Promise.resolve(json) })
 
 describe('parseJSON', () => {

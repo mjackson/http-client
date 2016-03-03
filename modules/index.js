@@ -1,11 +1,8 @@
 import { stringify } from 'query-string'
 
-let globalFetch
-if (typeof fetch === 'function') {
-  globalFetch = fetch
-} else if (typeof window !== 'object') {
-  globalFetch = require('node-fetch')
-}
+const globalFetch = typeof fetch === 'function'
+  ? fetch
+  : (typeof window !== 'object' && require('node-fetch'))
 
 const stringifyQuery = (query) =>
   (typeof query === 'string' ? query : stringify(query))
@@ -47,7 +44,7 @@ const setHeader = (options, name, value) =>
  * Sets the request method.
  */
 export const method = (verb) =>
-  (fetch, url, options={}) => {
+  (fetch, url, options = {}) => {
     options.method = verb
     return fetch(url, options)
   }
@@ -56,7 +53,7 @@ export const method = (verb) =>
  * Adds a header to the request.
  */
 export const header = (name, value) =>
-  (fetch, url, options={}) => {
+  (fetch, url, options = {}) => {
     setHeader(options, name, value)
     return fetch(url, options)
   }
@@ -96,7 +93,7 @@ export const query = (object) => {
  * Adds the given content to the request.
  */
 export const body = (content, contentType) =>
-  (fetch, url, options={}) => {
+  (fetch, url, options = {}) => {
     options.body = content
 
     if (content.length != null)
@@ -124,7 +121,7 @@ export const json = (object) =>
 export const params = (object) => {
   const queryString = stringifyQuery(object)
 
-  return (fetch, url, options={}) => {
+  return (fetch, url, options = {}) => {
     const method = (options.method || 'GET').toUpperCase()
     const middleware = (method === 'GET' || method === 'HEAD')
       ? query(queryString)
@@ -141,10 +138,10 @@ const enhanceResponse = (callback) =>
 /**
  * Adds the text of the response to response[propertyName].
  */
-export const parseText = (propertyName='textString') =>
+export const parseText = (propertyName = 'textString') =>
   enhanceResponse(response => (
-    response.text().then(text => {
-      response[propertyName] = text
+    response.text().then(value => {
+      response[propertyName] = value
       return response
     })
   ))
@@ -152,14 +149,14 @@ export const parseText = (propertyName='textString') =>
 /**
  * Adds the JSON of the response to response[propertyName].
  */
-export const parseJSON = (propertyName='jsonData') =>
+export const parseJSON = (propertyName = 'jsonData') =>
   enhanceResponse(response => (
     response.json()
-      .then(json => {
-        response[propertyName] = json
+      .then(value => {
+        response[propertyName] = value
         return response
       }, error => {
-        throw new Error('Error parsing JSON: ' + error.stack)
+        throw new Error(`Error parsing JSON: ${error.stack}`)
       })
   ))
 

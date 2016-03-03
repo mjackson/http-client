@@ -1,9 +1,10 @@
 import expect from 'expect'
 import { requestInfo } from '../index'
 
-const echo = (url, options) => Promise.resolve({ url, options })
+const echo = (url, options) =>
+  Promise.resolve({ url, options })
 
-const echoError = (url, options) =>
+const echoError = () =>
   Promise.reject(new Error)
 
 describe('requestInfo', () => {

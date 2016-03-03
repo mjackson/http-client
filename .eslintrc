@@ -1,0 +1,16 @@
+{
+  "extends": "airbnb",
+  "parser": "babel-eslint",
+  "env": {
+    "mocha": true
+  },
+  "rules": {
+    "array-bracket-spacing": [2, "always"],
+    "curly": [2, "multi-or-nest", "consistent"],
+    "eqeqeq": [2, "smart"],
+    "no-param-reassign": 0,
+    "no-return-assign": 0,
+    "no-shadow": 0,
+    "semi": [2, "never"]
+  }
+}
