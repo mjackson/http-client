@@ -32,6 +32,14 @@ You'll need to shim `window.fetch` in [browsers that do not support it](http://c
 
 In node, http-client automatically uses the [node-fetch](https://github.com/bitinn/node-fetch) library under the hood so no extra configuration is necessary. Be sure to read about the [known differences](https://github.com/bitinn/node-fetch/blob/master/LIMITS.md) between node-fetch and [the fetch spec](https://fetch.spec.whatwg.org/).
 
+The UMD build is also available on [npmcdn](https://npmcdn.com):
+
+```html
+<script src="https://npmcdn.com/http-client/umd/HTTPClient.min.js"></script>
+```
+
+You can find the library on `window.HTTPClient`.
+
 ## Usage
 
 http-client simplifies the process of creating flexible HTTP clients that work in both node and the browser. You create your own `fetch` function using the `createFetch` method, optionally passing [middleware](#middleware) as arguments.
