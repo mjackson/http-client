@@ -8,9 +8,8 @@
     "array-bracket-spacing": [2, "always"],
     "curly": [2, "multi-or-nest", "consistent"],
     "eqeqeq": [2, "smart"],
-    "no-param-reassign": 0,
+    "no-param-reassign": [2, { "props": false }],
     "no-return-assign": 0,
-    "no-shadow": 0,
     "semi": [2, "never"]
   }
 }

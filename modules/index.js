@@ -19,8 +19,12 @@ export const createStack = (...middleware) => {
 
   return middleware.reduceRight(
     (inner, outer) =>
-      (fetch, url, options) =>
-        outer((url, options) => inner(fetch, url, options), url, options)
+      (fetch, outerURL, outerOptions) =>
+        outer(
+          (innerURL, innerOptions) => inner(fetch, innerURL, innerOptions),
+          outerURL,
+          outerOptions
+        )
   )
 }
 
@@ -83,10 +87,8 @@ export const base = (baseURL) =>
 export const query = (object) => {
   const queryString = stringifyQuery(object)
 
-  return (fetch, url, options) => {
-    url += (url.indexOf('?') === -1 ? '?' : '&') + queryString
-    return fetch(url, options)
-  }
+  return (fetch, url, options) =>
+    fetch(url + (url.indexOf('?') === -1 ? '?' : '&') + queryString, options)
 }
 
 /**
@@ -122,8 +124,8 @@ export const params = (object) => {
   const queryString = stringifyQuery(object)
 
   return (fetch, url, options = {}) => {
-    const method = (options.method || 'GET').toUpperCase()
-    const middleware = (method === 'GET' || method === 'HEAD')
+    const verb = (options.method || 'GET').toUpperCase()
+    const middleware = (verb === 'GET' || verb === 'HEAD')
       ? query(queryString)
       : body(queryString, 'application/x-www-form-urlencoded')
 
@@ -171,8 +173,7 @@ export const requestInfo = () =>
         response.requestURL = url
         response.requestOptions = options
         return response
-      }, error => {
-        error = error || new Error
+      }, (error = new Error) => {
         error.requestURL = url
         error.requestOptions = options
         throw error
