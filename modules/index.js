@@ -79,7 +79,7 @@ export const accept = (contentType) =>
  */
 export const base = (baseURL) =>
   (fetch, url, options) =>
-    fetch(baseURL + url, options)
+    fetch(baseURL + (url || ''), options)
 
 /**
  * Adds the given object to the query string in the request.
