@@ -1,7 +1,8 @@
 import expect from 'expect'
 import { query } from '../index'
 
-const echo = (url, options) => Promise.resolve({ url, options })
+const echo = (url, options) =>
+  Promise.resolve({ url, options })
 
 describe('query', () => {
   describe('when the request does not already have a query string', () => {

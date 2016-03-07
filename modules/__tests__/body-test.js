@@ -1,7 +1,8 @@
 import expect from 'expect'
 import { body } from '../index'
 
-const echo = (url, options) => Promise.resolve({ url, options })
+const echo = (url, options) =>
+  Promise.resolve({ url, options })
 
 describe('body', () => {
   it('sets the body of the request', () => {

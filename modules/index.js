@@ -141,18 +141,18 @@ const enhanceResponse = (callback) =>
  * Adds the text of the response to response[propertyName].
  */
 export const parseText = (propertyName = 'textString') =>
-  enhanceResponse(response => (
+  enhanceResponse(response =>
     response.text().then(value => {
       response[propertyName] = value
       return response
     })
-  ))
+  )
 
 /**
  * Adds the JSON of the response to response[propertyName].
  */
 export const parseJSON = (propertyName = 'jsonData') =>
-  enhanceResponse(response => (
+  enhanceResponse(response =>
     response.json()
       .then(value => {
         response[propertyName] = value
@@ -160,7 +160,7 @@ export const parseJSON = (propertyName = 'jsonData') =>
       }, error => {
         throw new Error(`Error parsing JSON: ${error.stack}`)
       })
-  ))
+  )
 
 /**
  * Adds the requestURL and requestOptions properties to the

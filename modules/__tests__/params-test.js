@@ -1,7 +1,8 @@
 import expect from 'expect'
 import { params } from '../index'
 
-const echo = (url, options) => Promise.resolve({ url, options })
+const echo = (url, options) =>
+  Promise.resolve({ url, options })
 
 describe('params', () => {
   describe('when used with a GET request', () => {
