@@ -1,14 +1,16 @@
 import { stringify } from 'query-string'
 
-const globalFetch = typeof fetch === 'function'
-  ? fetch
-  : (typeof window !== 'object' && require('node-fetch'))
+const globalFetch = typeof fetch !== 'function'
+  ? (typeof window !== 'object' && require('node-fetch'))
+  : fetch
 
 const stringifyQuery = (query) =>
   (typeof query === 'string' ? query : stringify(query))
 
 const emptyStack = (fetch, url, options) =>
   fetch(url, options)
+
+export { globalFetch as fetch }
 
 /**
  * Creates a middleware "stack" function using all arguments.
