@@ -4,6 +4,9 @@ const globalFetch = typeof fetch !== 'function'
   ? (typeof window !== 'object' && require('node-fetch'))
   : fetch
 
+const stringifyJSON = (json) =>
+  (typeof json === 'string' ? json : JSON.stringify(json))
+
 const stringifyQuery = (query) =>
   (typeof query === 'string' ? query : stringify(query))
 
@@ -113,10 +116,7 @@ export const body = (content, contentType) =>
  * Adds an application/json payload to the request.
  */
 export const json = (object) =>
-  body(
-    typeof object === 'string' ? object : JSON.stringify(object),
-    'application/json'
-  )
+  body(stringifyJSON(object), 'application/json')
 
 /**
  * Adds the given object to the query string of GET/HEAD requests
