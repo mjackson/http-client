@@ -12,6 +12,6 @@ exec('npm run build-min')
 
 console.log(
   '\ngzipped, the UMD build is ' + prettyBytes(
-    gzipSize.sync(readFileSync('umd/HTTPClient.min.js'))
+    gzipSize.sync(readFileSync('umd/http-client.min.js'))
   )
 )

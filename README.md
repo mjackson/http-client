@@ -37,7 +37,7 @@ In node, http-client automatically uses the [node-fetch](https://github.com/biti
 The UMD build is also available on [npmcdn](https://npmcdn.com):
 
 ```html
-<script src="https://npmcdn.com/http-client/umd/HTTPClient.min.js"></script>
+<script src="https://npmcdn.com/http-client/umd/http-client.min.js"></script>
 ```
 
 You can find the library on `window.HTTPClient`.

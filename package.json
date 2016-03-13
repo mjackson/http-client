@@ -14,8 +14,8 @@
     "lint": "eslint modules",
     "build": "node ./scripts/build.js",
     "build-cjs": "rimraf lib && babel ./modules -d lib --ignore '__tests__'",
-    "build-min": "webpack -p modules/index.js umd/HTTPClient.min.js",
-    "build-umd": "webpack modules/index.js umd/HTTPClient.js",
+    "build-min": "webpack -p modules/index.js umd/http-client.min.js",
+    "build-umd": "webpack modules/index.js umd/http-client.js",
     "release": "node ./scripts/release.js",
     "prepublish": "npm run build",
     "test": "npm run lint && karma start"
