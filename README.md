@@ -18,6 +18,8 @@ Using [npm](https://www.npmjs.com/):
 
     $ npm install --save http-client
 
+> Node version `>=4` is required.
+
 Then with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else:
 
 ```js
