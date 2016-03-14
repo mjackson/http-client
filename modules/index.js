@@ -10,8 +10,8 @@ const stringifyJSON = (json) =>
 const stringifyQuery = (query) =>
   (typeof query === 'string' ? query : stringify(query))
 
-const emptyStack = (fetch, url, options) =>
-  fetch(url, options)
+const emptyStack = (fetch, input, options) =>
+  fetch(input, options)
 
 export { globalFetch as fetch }
 
@@ -24,10 +24,10 @@ export const createStack = (...middleware) => {
 
   return middleware.reduceRight(
     (inner, outer) =>
-      (fetch, outerURL, outerOptions) =>
+      (fetch, outerInput, outerOptions) =>
         outer(
-          (innerURL, innerOptions) => inner(fetch, innerURL, innerOptions),
-          outerURL,
+          (innerInput, innerOptions) => inner(fetch, innerInput, innerOptions),
+          outerInput,
           outerOptions
         )
   )
@@ -42,8 +42,8 @@ export const createFetch = (...middleware) => {
 
   const stack = createStack(...middleware)
 
-  return (url, options) =>
-    stack(globalFetch, url, options)
+  return (input, options) =>
+    stack(globalFetch, input, options)
 }
 
 const setHeader = (options, name, value) => {
@@ -54,18 +54,18 @@ const setHeader = (options, name, value) => {
  * Sets the request method.
  */
 export const method = (verb) =>
-  (fetch, url, options = {}) => {
+  (fetch, input, options = {}) => {
     options.method = verb
-    return fetch(url, options)
+    return fetch(input, options)
   }
 
 /**
  * Adds a header to the request.
  */
 export const header = (name, value) =>
-  (fetch, url, options = {}) => {
+  (fetch, input, options = {}) => {
     setHeader(options, name, value)
-    return fetch(url, options)
+    return fetch(input, options)
   }
 
 /**
@@ -84,8 +84,8 @@ export const accept = (contentType) =>
  * Adds the given string at the front of the request URL.
  */
 export const base = (baseURL) =>
-  (fetch, url, options) =>
-    fetch(baseURL + (url || ''), options)
+  (fetch, input, options) =>
+    fetch(baseURL + (input || ''), options)
 
 /**
  * Adds the given object to the query string in the request.
@@ -93,15 +93,15 @@ export const base = (baseURL) =>
 export const query = (object) => {
   const queryString = stringifyQuery(object)
 
-  return (fetch, url, options) =>
-    fetch(url + (url.indexOf('?') === -1 ? '?' : '&') + queryString, options)
+  return (fetch, input, options) =>
+    fetch(input + (input.indexOf('?') === -1 ? '?' : '&') + queryString, options)
 }
 
 /**
  * Adds the given content to the request.
  */
 export const body = (content, contentType) =>
-  (fetch, url, options = {}) => {
+  (fetch, input, options = {}) => {
     options.body = content
 
     if (content.length != null)
@@ -110,7 +110,7 @@ export const body = (content, contentType) =>
     if (contentType)
       setHeader(options, 'Content-Type', contentType)
 
-    return fetch(url, options)
+    return fetch(input, options)
   }
 
 /**
@@ -126,19 +126,19 @@ export const json = (object) =>
 export const params = (object) => {
   const queryString = stringifyQuery(object)
 
-  return (fetch, url, options = {}) => {
+  return (fetch, input, options = {}) => {
     const verb = (options.method || 'GET').toUpperCase()
     const middleware = (verb === 'GET' || verb === 'HEAD')
       ? query(queryString)
       : body(queryString, 'application/x-www-form-urlencoded')
 
-    return middleware(fetch, url, options)
+    return middleware(fetch, input, options)
   }
 }
 
 const enhanceResponse = (callback) =>
-  (fetch, url, options) =>
-    fetch(url, options).then(callback)
+  (fetch, input, options) =>
+    fetch(input, options).then(callback)
 
 /**
  * Adds the text of the response to response[propertyName].
@@ -170,14 +170,14 @@ export const parseJSON = (propertyName = 'jsonData') =>
  * response/error. Mainly useful in testing/debugging.
  */
 export const requestInfo = () =>
-  (fetch, url, options) =>
-    fetch(url, options)
+  (fetch, input, options) =>
+    fetch(input, options)
       .then(response => {
-        response.requestURL = url
+        response.requestInput = input
         response.requestOptions = options
         return response
       }, (error = new Error) => {
-        error.requestURL = url
+        error.requestInput = input
         error.requestOptions = options
         throw error
       })

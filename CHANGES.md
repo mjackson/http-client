@@ -1,3 +1,10 @@
+## HEAD
+
+- **Breakage:** Use `requestInput` property instead of `requestURL` in `requestInfo`
+  middleware
+
+[HEAD]: https://github.com/mjackson/http-client/compare/latest...HEAD
+
 ## [2.2.1]
 > Mar 13, 2016
 

@@ -1,14 +1,14 @@
 import expect from 'expect'
 import { params } from '../index'
 
-const echo = (url, options) =>
-  Promise.resolve({ url, options })
+const echo = (input, options) =>
+  Promise.resolve({ input, options })
 
 describe('params', () => {
   describe('when used with a GET request', () => {
     it('appends the object to the query string of the request', () =>
-      params({ hello: 'world' })(echo, '/').then(({ url }) =>
-        expect(url).toEqual('/?hello=world')
+      params({ hello: 'world' })(echo, '/').then(({ input }) =>
+        expect(input).toEqual('/?hello=world')
       )
     )
   })

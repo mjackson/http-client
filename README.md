@@ -176,7 +176,7 @@ const fetch = createFetch(
   parseText()
 )
 
-fetch(url).then(response => {
+fetch(input).then(response => {
   console.log(response.textString)
 })
 ```
@@ -192,7 +192,7 @@ const fetch = createFetch(
   parseJSON()
 )
 
-fetch(url).then(response => {
+fetch(input).then(response => {
   console.log(response.jsonData)
 })
 ```
@@ -209,7 +209,7 @@ const fetch = createFetch(
   requestInfo()
 )
 
-fetch(url).then(response => {
+fetch(input).then(response => {
   console.log(response.requestURL, response.requestOptions)
 })
 ```

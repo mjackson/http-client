@@ -1,8 +1,8 @@
 import expect from 'expect'
 import { auth } from '../index'
 
-const echo = (url, options) =>
-  Promise.resolve({ url, options })
+const echo = (input, options) =>
+  Promise.resolve({ input, options })
 
 describe('auth', () => {
   it('sets the value of the Authorization request header', () =>

@@ -1,8 +1,8 @@
 import expect from 'expect'
 import { json } from '../index'
 
-const echo = (url, options) =>
-  Promise.resolve({ url, options })
+const echo = (input, options) =>
+  Promise.resolve({ input, options })
 
 describe('json', () => {
   it('sets the body of the request to JSON', () => {

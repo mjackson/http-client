@@ -1,13 +1,13 @@
 import expect from 'expect'
 import { createStack } from '../index'
 
-const echo = (url, options) =>
-  Promise.resolve({ url, options })
+const echo = (input, options) =>
+  Promise.resolve({ input, options })
 
 const push = (n) =>
-  (fetch, url, options = {}) => {
+  (fetch, input, options = {}) => {
     (options.pushed || (options.pushed = [])).push(n)
-    return fetch(url, options)
+    return fetch(input, options)
   }
 
 describe('createStack', () => {

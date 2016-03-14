@@ -1,17 +1,17 @@
 import expect from 'expect'
 import { requestInfo } from '../index'
 
-const echo = (url, options) =>
-  Promise.resolve({ url, options })
+const echo = (input, options) =>
+  Promise.resolve({ input, options })
 
 const echoError = () =>
   Promise.reject(new Error)
 
 describe('requestInfo', () => {
   describe('when the request succeeds', () => {
-    it('sets the requestURL property of the response', () =>
+    it('sets the requestInput property of the response', () =>
       requestInfo()(echo, '/hello', { the: 'options' }).then(response =>
-        expect(response.requestURL).toEqual('/hello')
+        expect(response.requestInput).toEqual('/hello')
       )
     )
 
@@ -23,9 +23,9 @@ describe('requestInfo', () => {
   })
 
   describe('when the request fails', () => {
-    it('sets the requestURL property of the error', () =>
+    it('sets the requestInput property of the error', () =>
       requestInfo()(echoError, '/hello', { the: 'options' }).then(undefined, (error) =>
-        expect(error.requestURL).toEqual('/hello')
+        expect(error.requestInput).toEqual('/hello')
       )
     )
 

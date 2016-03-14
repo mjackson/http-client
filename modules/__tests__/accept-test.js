@@ -1,8 +1,8 @@
 import expect from 'expect'
 import { accept } from '../index'
 
-const echo = (url, options) =>
-  Promise.resolve({ url, options })
+const echo = (input, options) =>
+  Promise.resolve({ input, options })
 
 describe('accept', () => {
   it('sets the value of the Accept request header', () =>
