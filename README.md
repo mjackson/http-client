@@ -61,7 +61,7 @@ fetch('/customers/5').then(response => {
 })
 ```
 
-http-client also exports a "global" `fetch` function if you need it.
+http-client also exports a "global" `fetch` function if you need it (i.e. don't want middleware).
 
 ## Using Callbacks
 
@@ -69,7 +69,7 @@ http-client also exports a "global" `fetch` function if you need it.
 
 It's cool. I've got your back.
 
-All `fetch` functions in `http-client` support a trailing `callback` argument that you can use to handle responses and/or errors just like you're used to doing in node.js.
+All `fetch` functions in http-client support a trailing `callback` argument that you can use to handle responses and/or errors just like you're used to doing in node.js.
 
 ```js
 fetch('/customers/5', (error, response) => {
