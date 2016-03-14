@@ -60,6 +60,24 @@ fetch('/customers/5').then(response => {
 })
 ```
 
+## Using Callbacks
+
+> Arrrgggh, but I HATE promises!!
+
+It's cool. I've got your back.
+
+All `fetch` functions in `http-client` support a trailing `callback` argument that you can use to handle responses and/or errors just like you're used to doing in node.js.
+
+```js
+fetch('/customers/5', (error, response) => {
+  // ...
+})
+```
+
+Notice I said the callback is the *trailing* argument. This means that you can omit either of the first two arguments; just make sure the callback comes last.
+
+**Note:** When you *do* use a callback, a promise is still returned. However, it always resolves to `undefined`. It is assumed that if you're using a callback you'll do anything you need to with the response and/or error in the callback.
+
 ## Middleware
 
 http-client provides a variety of middleware that may be used to extend the functionality of the client. Out of the box, http-client ships with the following middleware:

@@ -4,6 +4,28 @@ const globalFetch = typeof fetch !== 'function'
   ? (typeof window !== 'object' && require('node-fetch'))
   : fetch
 
+const resolvePromise = (promise, callback) =>
+  promise.then(value => callback(null, value), callback)
+
+const enhanceFetch = (fetch) =>
+  (input, options, callback) => {
+    if (typeof options === 'function') {
+      callback = options
+      options = undefined
+    } else if (typeof input === 'function') {
+      callback = input
+      input = undefined
+    }
+
+    const promise = fetch(input, options)
+
+    return (typeof callback === 'function')
+      ? resolvePromise(promise, callback)
+      : promise
+  }
+
+const enhancedFetch = enhanceFetch(globalFetch)
+
 const stringifyJSON = (json) =>
   (typeof json === 'string' ? json : JSON.stringify(json))
 
@@ -13,7 +35,7 @@ const stringifyQuery = (query) =>
 const emptyStack = (fetch, input, options) =>
   fetch(input, options)
 
-export { globalFetch as fetch }
+export { enhancedFetch as fetch }
 
 /**
  * Creates a middleware "stack" function using all arguments.
@@ -38,12 +60,14 @@ export const createStack = (...middleware) => {
  */
 export const createFetch = (...middleware) => {
   if (middleware.length === 0)
-    return globalFetch
+    return enhancedFetch
 
   const stack = createStack(...middleware)
 
-  return (input, options) =>
-    stack(globalFetch, input, options)
+  return enhanceFetch(
+    (input, options) =>
+      stack(globalFetch, input, options)
+  )
 }
 
 const setHeader = (options, name, value) => {

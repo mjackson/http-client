@@ -1,5 +1,6 @@
 ## HEAD
 
+- Add callback support to all `fetch` methods
 - **Breakage:** Use `requestInput` property instead of `requestURL` in `requestInfo`
   middleware
 
