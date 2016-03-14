@@ -18,22 +18,20 @@ Using [npm](https://www.npmjs.com/):
 
     $ npm install --save http-client
 
-> Node version `>=4` is required.
-
-Then with a module bundler like [webpack](https://webpack.github.io/), use as you would anything else:
+Then, use as you would anything else:
 
 ```js
-// using an ES6 transpiler, like babel
+// using ES6 modules
 import { fetch, createFetch } from 'http-client'
 
-// not using an ES6 transpiler
+// using CommonJS modules
 var fetch = require('http-client').fetch
 var createFetch = require('http-client').createFetch
 ```
 
 You'll need to shim `window.fetch` in [browsers that do not support it](http://caniuse.com/#feat=fetch) (Safari and IE). [github/fetch](https://github.com/github/fetch) is a great polyfill.
 
-In node, http-client automatically uses the [node-fetch](https://github.com/bitinn/node-fetch) library under the hood so no extra configuration is necessary. Be sure to read about the [known differences](https://github.com/bitinn/node-fetch/blob/master/LIMITS.md) between node-fetch and [the fetch spec](https://fetch.spec.whatwg.org/).
+In node, http-client automatically uses the [node-fetch](https://github.com/bitinn/node-fetch) library under the hood so no extra configuration is necessary. You'll need to be running node >= 4. Be sure to read about the [known differences](https://github.com/bitinn/node-fetch/blob/master/LIMITS.md) between node-fetch and [the fetch spec](https://fetch.spec.whatwg.org/).
 
 The UMD build is also available on [npmcdn](https://npmcdn.com):
 
