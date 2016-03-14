@@ -46,8 +46,9 @@ export const createFetch = (...middleware) => {
     stack(globalFetch, url, options)
 }
 
-const setHeader = (options, name, value) =>
+const setHeader = (options, name, value) => {
   (options.headers || (options.headers = {}))[name] = value
+}
 
 /**
  * Sets the request method.

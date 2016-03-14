@@ -9,7 +9,6 @@
     "eqeqeq": [2, "smart"],
     "max-len": 1,
     "no-param-reassign": [2, { "props": false }],
-    "no-return-assign": 0,
     "no-shadow": 1,
     "prefer-template": 0,
     "semi": [2, "never"]
