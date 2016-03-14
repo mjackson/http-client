@@ -24,9 +24,10 @@ Then with a module bundler like [webpack](https://webpack.github.io/), use as yo
 
 ```js
 // using an ES6 transpiler, like babel
-import { createFetch } from 'http-client'
+import { fetch, createFetch } from 'http-client'
 
 // not using an ES6 transpiler
+var fetch = require('http-client').fetch
 var createFetch = require('http-client').createFetch
 ```
 
@@ -59,6 +60,8 @@ fetch('/customers/5').then(response => {
   console.log(response.jsonData)
 })
 ```
+
+http-client also exports a "global" `fetch` function if you need it.
 
 ## Using Callbacks
 
