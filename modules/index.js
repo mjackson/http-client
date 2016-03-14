@@ -38,7 +38,7 @@ export const createStack = (...middleware) => {
  */
 export const createFetch = (...middleware) => {
   if (middleware.length === 0)
-    return fetch
+    return globalFetch
 
   const stack = createStack(...middleware)
 
