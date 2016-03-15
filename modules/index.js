@@ -9,12 +9,14 @@ const resolvePromise = (promise, callback) =>
 
 const enhanceFetch = (fetch) =>
   (input, options, callback) => {
-    if (typeof options === 'function') {
-      callback = options
-      options = undefined
-    } else if (typeof input === 'function') {
-      callback = input
-      input = undefined
+    if (typeof callback !== 'function') {
+      if (typeof options === 'function') {
+        callback = options
+        options = undefined
+      } else if (typeof input === 'function') {
+        callback = input
+        input = undefined
+      }
     }
 
     const promise = fetch(input, options)
