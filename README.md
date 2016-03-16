@@ -79,6 +79,24 @@ Notice I said the callback is the *trailing* argument. This means that you can o
 
 **Note:** When you *do* use a callback, a promise is still returned. However, it always resolves to `undefined`. It is assumed that if you're using a callback you'll do anything you need to with the response and/or error in the callback.
 
+## Top-level API
+
+#### `fetch([input], [options], [callback])`
+
+An enhanced `fetch` function that accepts an optional `callback` as a trailing argument. Use this directly if you don't need any middleware.
+
+#### `createFetch(...middleware)`
+
+Creates a `fetch` function that is fronted by some middleware. This function has the same signature as the enhanced `fetch` function in the top-level API.
+
+#### `createStack(...middleware)`
+
+Combines several middleware into one, in the same order they are provided as arguments. Use this function to create re-usable [middleware stacks](#stacks).
+
+#### `handleResponse(callback)`
+
+A helper for creating middleware that enhances the `response` object in some way. Used internally to create the `parseText` and `parseJSON` middleware.
+
 ## Middleware
 
 http-client provides a variety of middleware that may be used to extend the functionality of the client. Out of the box, http-client ships with the following middleware:
@@ -184,7 +202,7 @@ const fetch = createFetch(
 )
 ```
 
-#### `parseText(propertyName='textString')`
+#### `parseText(propertyName = 'textString')`
 
 Reads the response body as text and puts it on `response.textString`.
 
@@ -200,7 +218,7 @@ fetch(input).then(response => {
 })
 ```
 
-#### `parseJSON(propertyName='jsonData')`
+#### `parseJSON(propertyName = 'jsonData')`
 
 Reads the response body as JSON and puts it on `response.jsonData`.
 
