@@ -162,7 +162,10 @@ export const params = (object) => {
   }
 }
 
-const enhanceResponse = (callback) =>
+/**
+ * A helper for creating middleware that handles a successful response.
+ */
+export const handleResponse = (callback) =>
   (fetch, input, options) =>
     fetch(input, options).then(callback)
 
@@ -170,7 +173,7 @@ const enhanceResponse = (callback) =>
  * Adds the text of the response to response[propertyName].
  */
 export const parseText = (propertyName = 'textString') =>
-  enhanceResponse(response =>
+  handleResponse(response =>
     response.text().then(value => {
       response[propertyName] = value
       return response
@@ -181,7 +184,7 @@ export const parseText = (propertyName = 'textString') =>
  * Adds the JSON of the response to response[propertyName].
  */
 export const parseJSON = (propertyName = 'jsonData') =>
-  enhanceResponse(response =>
+  handleResponse(response =>
     response.json()
       .then(value => {
         response[propertyName] = value
