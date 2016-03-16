@@ -1,3 +1,9 @@
+## [HEAD]
+
+- Export `handleResponse` helper for building middleware
+
+[HEAD]: https://github.com/mjackson/http-client/compare/latest...HEAD
+
 ## [2.3.0]
 > Mar 14, 2016
 
