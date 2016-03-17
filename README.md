@@ -276,3 +276,7 @@ const fetchSinceBeginningOf2015 = createFetch(
   query({ since: '2015-01-01T00:00:00Z' })
 )
 ```
+
+## Issues
+
+If you discover a problem with this code or its documentation, please [send a pull request](https://help.github.com/articles/using-pull-requests/) with the changes you'd like to see and I'll be happy to discuss further with you. For bugs, failing tests are invaluable. Thank you!
