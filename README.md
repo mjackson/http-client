@@ -31,6 +31,21 @@ var createFetch = require('http-client').createFetch
 
 You'll need to shim `window.fetch` in [browsers that do not support it](http://caniuse.com/#feat=fetch) (Safari and IE). [github/fetch](https://github.com/github/fetch) is a great polyfill.
 
+If you're bundling http-client with [webpack](https://webpack.github.io/), you'll want to include the following in your webpack config:
+
+```js
+const webpack = require('webpack')
+
+module.exports = {
+  plugins: [
+    new webpack.IgnorePlugin(/node-fetch/),
+    new webpack.DefinePlugin({
+      'typeof window': JSON.stringify('object')
+    })
+  ]
+}
+```
+
 In node, http-client automatically uses the [node-fetch](https://github.com/bitinn/node-fetch) library under the hood so no extra configuration is necessary. You'll need to be running node >= 4. Be sure to read about the [known differences](https://github.com/bitinn/node-fetch/blob/master/LIMITS.md) between node-fetch and [the fetch spec](https://fetch.spec.whatwg.org/).
 
 The UMD build is also available on [npmcdn](https://npmcdn.com):

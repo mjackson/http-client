@@ -4,8 +4,9 @@
   "description": "Compose HTTP clients using JavaScript's fetch API",
   "author": "Michael Jackson",
   "license": "MIT",
-  "main": "lib",
+  "webpack": "lib",
   "browser": "umd/http-client.min.js",
+  "main": "lib",
   "files": [
     "lib",
     "umd"
