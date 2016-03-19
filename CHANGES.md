@@ -1,6 +1,7 @@
 ## [HEAD]
 
 - Export `handleResponse` helper for building middleware
+- Fixed `browser` field in package config
 
 [HEAD]: https://github.com/mjackson/http-client/compare/latest...HEAD
 

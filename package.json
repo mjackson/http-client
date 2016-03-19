@@ -5,7 +5,7 @@
   "author": "Michael Jackson",
   "license": "MIT",
   "main": "lib",
-  "browser": "umd/HTTPClient.min.js",
+  "browser": "umd/http-client.min.js",
   "files": [
     "lib",
     "umd"
