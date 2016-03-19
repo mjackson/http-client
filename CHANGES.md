@@ -1,9 +1,10 @@
-## [HEAD]
+## [2.4.0]
+> Mar 18, 2016
 
 - Export `handleResponse` helper for building middleware
 - Fixed `browser` field in package config
 
-[HEAD]: https://github.com/mjackson/http-client/compare/latest...HEAD
+[2.4.0]: https://github.com/mjackson/http-client/compare/v2.3.0...v2.4.0
 
 ## [2.3.0]
 > Mar 14, 2016
