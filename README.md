@@ -33,7 +33,7 @@ In node, http-client automatically uses the [node-fetch](https://github.com/biti
 
 You'll need to shim `window.fetch` in [browsers that do not support it](http://caniuse.com/#feat=fetch) (Safari and IE). [github/fetch](https://github.com/github/fetch) is a great polyfill.
 
-If you're bundling http-client with [webpack](https://webpack.github.io/), you'll want to include the following in your webpack config:
+If you're bundling http-client with [webpack](https://webpack.github.io/), you'll want to include the following in your client's webpack config:
 
 ```js
 const webpack = require('webpack')
