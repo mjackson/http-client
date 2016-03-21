@@ -1,6 +1,6 @@
 {
   "name": "http-client",
-  "version": "2.4.1",
+  "version": "2.4.2",
   "description": "Compose HTTP clients using JavaScript's fetch API",
   "author": "Michael Jackson",
   "license": "MIT",
