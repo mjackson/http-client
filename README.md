@@ -9,7 +9,7 @@
 [http-client](https://www.npmjs.com/package/http-client) lets you compose HTTP clients using JavaScript's [fetch API](https://developer.mozilla.org/en-US/docs/Web/API/Fetch_API). This library has the following goals:
 
   - Preserve the full capabilities of the fetch API
-  - Provide an extendable  middleware API
+  - Provide an extendable middleware API
   - Use the same API on both client and server
 
 ## Installation
