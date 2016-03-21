@@ -13,8 +13,11 @@ module.exports = {
     ]
   },
 
+  resolve: {
+    packageAlias: 'browser'
+  },
+
   plugins: [
-    new webpack.IgnorePlugin(/node-fetch/),
     new webpack.DefinePlugin({
       'typeof window': JSON.stringify('object')
     })

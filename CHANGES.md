@@ -1,3 +1,9 @@
+## [HEAD]
+
+- Fix bundling with Browserify
+
+[HEAD]: https://github.com/mjackson/http-client/compare/latest...HEAD
+
 ## [2.4.0]
 > Mar 18, 2016
 

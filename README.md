@@ -33,18 +33,13 @@ In node, http-client automatically uses the [node-fetch](https://github.com/biti
 
 You'll need to shim `window.fetch` in [browsers that do not support it](http://caniuse.com/#feat=fetch) (Safari and IE). [github/fetch](https://github.com/github/fetch) is a great polyfill.
 
-If you're bundling http-client with [webpack](https://webpack.github.io/), you'll want to include the following in your webpack config:
+http-client uses [the `browser` field](https://github.com/defunctzombie/package-browser-field-spec) in its `package.json` to avoid bundling `node-fetch` in browsers. In [Browserify](http://browserify.org/), this will just work™. If you're bundling http-client with [webpack](https://webpack.github.io/), you'll either need to ignore `node-fetch` explicitly or include the following in your config:
 
 ```js
-const webpack = require('webpack')
-
 module.exports = {
-  plugins: [
-    new webpack.IgnorePlugin(/node-fetch/),
-    new webpack.DefinePlugin({
-      'typeof window': JSON.stringify('object')
-    })
-  ]
+  resolve: {
+    packageAlias: 'browser'
+  }
 }
 ```
 
