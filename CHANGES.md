@@ -1,3 +1,9 @@
+## [HEAD]
+
+- Require consumers to provide their own global `fetch` function
+
+[HEAD]: https://github.com/mjackson/http-client/compare/latest...HEAD
+
 ## [2.4.2]
 
 - Fix bundling with Browserify

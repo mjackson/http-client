@@ -1,9 +1,5 @@
 import { stringify } from 'query-string'
 
-const globalFetch = typeof fetch !== 'function'
-  ? (typeof window !== 'object' && require('node-fetch'))
-  : fetch
-
 const resolvePromise = (promise, callback) =>
   promise.then(value => callback(null, value), callback)
 
@@ -26,7 +22,7 @@ const enhanceFetch = (fetch) =>
       : promise
   }
 
-const enhancedFetch = enhanceFetch(globalFetch)
+const enhancedFetch = enhanceFetch(fetch)
 
 const stringifyJSON = (json) =>
   (typeof json === 'string' ? json : JSON.stringify(json))
@@ -68,7 +64,7 @@ export const createFetch = (...middleware) => {
 
   return enhanceFetch(
     (input, options) =>
-      stack(globalFetch, input, options)
+      stack(fetch, input, options)
   )
 }
 

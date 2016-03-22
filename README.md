@@ -18,6 +18,8 @@ Using [npm](https://www.npmjs.com/):
 
     $ npm install --save http-client
 
+http-client requires you to bring your own [global `fetch`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch) function. [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) is a great polyfill.
+
 Then, use as you would anything else:
 
 ```js
@@ -27,20 +29,6 @@ import { fetch, createFetch } from 'http-client'
 // using CommonJS modules
 var fetch = require('http-client').fetch
 var createFetch = require('http-client').createFetch
-```
-
-In node, http-client automatically uses the [node-fetch](https://github.com/bitinn/node-fetch) library under the hood so no extra configuration is necessary. You'll need to be running node >= 4. Be sure to read about the [known differences](https://github.com/bitinn/node-fetch/blob/master/LIMITS.md) between node-fetch and [the fetch spec](https://fetch.spec.whatwg.org/).
-
-You'll need to shim `window.fetch` in [browsers that do not support it](http://caniuse.com/#feat=fetch) (Safari and IE). [github/fetch](https://github.com/github/fetch) is a great polyfill.
-
-http-client uses [the `browser` field](https://github.com/defunctzombie/package-browser-field-spec) in its `package.json` to avoid bundling `node-fetch` in browsers. In [Browserify](http://browserify.org/), this will just work™. If you're bundling http-client with [webpack](https://webpack.github.io/), you'll either need to ignore `node-fetch` explicitly or include the following in your config:
-
-```js
-module.exports = {
-  resolve: {
-    packageAlias: 'browser'
-  }
-}
 ```
 
 The UMD build is also available on [npmcdn](https://npmcdn.com):
@@ -69,7 +57,7 @@ fetch('/customers/5').then(response => {
 })
 ```
 
-http-client also exports a "global" `fetch` function if you need it (i.e. don't want middleware).
+http-client also exports a base `fetch` function if you need it (i.e. don't want middleware).
 
 ## Using Callbacks
 
@@ -77,7 +65,7 @@ http-client also exports a "global" `fetch` function if you need it (i.e. don't 
 
 It's cool. I've got your back.
 
-All `fetch` functions in http-client support a trailing `callback` argument that you can use to handle responses and/or errors just like you're used to doing in node.js.
+All `fetch` functions in http-client are enhanced with a trailing `callback` argument that you can use to handle responses and/or errors just like you're used to doing in node.js.
 
 ```js
 fetch('/customers/5', (error, response) => {
