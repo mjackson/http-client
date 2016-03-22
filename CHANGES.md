@@ -1,8 +1,8 @@
-## [HEAD]
+## [3.0.0]
 
 - Require consumers to provide their own global `fetch` function
 
-[HEAD]: https://github.com/mjackson/http-client/compare/latest...HEAD
+[3.0.0]: https://github.com/mjackson/http-client/compare/v2.4.2...v3.0.0
 
 ## [2.4.2]
 
