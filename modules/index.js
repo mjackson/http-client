@@ -68,18 +68,24 @@ export const createFetch = (...middleware) => {
   )
 }
 
-const setHeader = (options, name, value) => {
-  (options.headers || (options.headers = {}))[name] = value
-}
+/**
+ * Sets a property name and value in the options object.
+ */
+export const init = (propertyName, value) =>
+  (fetch, input, options = {}) => {
+    options[propertyName] = value
+    return fetch(input, options)
+  }
 
 /**
  * Sets the request method.
  */
 export const method = (verb) =>
-  (fetch, input, options = {}) => {
-    options.method = verb
-    return fetch(input, options)
-  }
+  init('method', verb)
+
+const setHeader = (options, name, value) => {
+  (options.headers || (options.headers = {}))[name] = value
+}
 
 /**
  * Adds a header to the request.

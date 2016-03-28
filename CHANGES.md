@@ -1,3 +1,9 @@
+## [HEAD]
+
+- Added the `init` middleware
+
+[HEAD]: https://github.com/mjackson/http-client/compare/latest...HEAD
+
 ## [3.0.0]
 
 - Require consumers to provide their own global `fetch` function
