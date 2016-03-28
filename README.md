@@ -99,6 +99,18 @@ A helper for creating middleware that enhances the `response` object in some way
 
 http-client provides a variety of middleware that may be used to extend the functionality of the client. Out of the box, http-client ships with the following middleware:
 
+#### `init(propertyName, value)`
+
+Sets the value of an arbitrary property in the options object.
+
+```js
+import { createFetch, init } from 'http-client'
+
+const fetch = createFetch(
+  init('timeout', 5000)
+)
+```
+
 #### `method(verb)`
 
 Sets the request method.
