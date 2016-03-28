@@ -107,7 +107,7 @@ Sets the value of an arbitrary property in the options object.
 import { createFetch, init } from 'http-client'
 
 const fetch = createFetch(
-  init('timeout', 5000)
+  init('credentials', 'include')
 )
 ```
 
