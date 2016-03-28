@@ -1,8 +1,8 @@
-## [HEAD]
+## [3.1.0]
 
 - Added the `init` middleware
 
-[HEAD]: https://github.com/mjackson/http-client/compare/latest...HEAD
+[3.1.0]: https://github.com/mjackson/http-client/compare/v3.0.0...v3.1.0
 
 ## [3.0.0]
 
