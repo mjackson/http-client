@@ -1,26 +1,8 @@
 import { stringify } from 'query-string'
 
-const resolvePromise = (promise, callback) =>
-  promise.then(value => callback(null, value), callback)
-
-const enhanceFetch = (fetch) =>
-  (input, options, callback) => {
-    if (typeof callback !== 'function') {
-      if (typeof options === 'function') {
-        callback = options
-        options = undefined
-      } else if (typeof input === 'function') {
-        callback = input
-        input = undefined
-      }
-    }
-
-    const promise = fetch(input, options)
-
-    return (typeof callback === 'function')
-      ? resolvePromise(promise, callback)
-      : promise
-  }
+export const enhanceFetch = (fetch) =>
+  (input, options = {}) =>
+    fetch(input, options)
 
 const enhancedFetch = enhanceFetch(fetch)
 

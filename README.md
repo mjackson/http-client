@@ -59,29 +59,11 @@ fetch('/customers/5').then(response => {
 
 http-client also exports a base `fetch` function if you need it (i.e. don't want middleware).
 
-## Using Callbacks
-
-> Arrrgggh, but I HATE promises!!
-
-It's cool. I've got your back.
-
-All `fetch` functions in http-client are enhanced with a trailing `callback` argument that you can use to handle responses and/or errors just like you're used to doing in node.js.
-
-```js
-fetch('/customers/5', (error, response) => {
-  // ...
-})
-```
-
-Notice I said the callback is the *trailing* argument. This means that you can omit either of the first two arguments; just make sure the callback comes last.
-
-**Note:** When you *do* use a callback, a promise is still returned. However, it always resolves to `undefined`. It is assumed that if you're using a callback you'll do anything you need to with the response and/or error in the callback.
-
 ## Top-level API
 
-#### `fetch([input], [options], [callback])`
+#### `fetch([input], [options])`
 
-An enhanced `fetch` function that accepts an optional `callback` as a trailing argument. Use this directly if you don't need any middleware.
+An enhanced `fetch` function. Use this directly if you don't need any middleware.
 
 #### `createFetch(...middleware)`
 
@@ -91,9 +73,9 @@ Creates a `fetch` function that is fronted by some middleware. This function has
 
 Combines several middleware into one, in the same order they are provided as arguments. Use this function to create re-usable [middleware stacks](#stacks).
 
-#### `handleResponse(callback)`
+#### `handleResponse(handler)`
 
-A helper for creating middleware that enhances the `response` object in some way. Used internally to create the `parseText` and `parseJSON` middleware.
+A helper for creating middleware that enhances the `response` object in some way. The `handler` function should return the new response value, or a promise for it. This function is used internally to create the `parseText` and `parseJSON` middleware.
 
 ## Middleware
 

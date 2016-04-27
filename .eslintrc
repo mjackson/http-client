@@ -8,8 +8,10 @@
     "curly": [1, "multi-or-nest", "consistent"],
     "eqeqeq": [2, "smart"],
     "max-len": 1,
+    "no-confusing-arrow": 0,
     "no-param-reassign": [1, { "props": false }],
     "no-shadow": 1,
+    "no-use-before-define": 0,
     "prefer-template": 0,
     "semi": [2, "never"]
   }
