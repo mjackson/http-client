@@ -1,9 +1,11 @@
 import expect from 'expect'
-import { parseText } from '../index'
+import { enhanceFetch, parseText } from '../index'
 
 const echoText = (text) =>
-  () =>
-    Promise.resolve({ text: () => Promise.resolve(text) })
+  enhanceFetch(
+    () =>
+      Promise.resolve({ text: () => Promise.resolve(text) })
+  )
 
 describe('parseText', () => {
   describe('by default', () => {

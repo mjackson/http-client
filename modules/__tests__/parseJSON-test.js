@@ -1,9 +1,11 @@
 import expect from 'expect'
-import { parseJSON } from '../index'
+import { enhanceFetch, parseJSON } from '../index'
 
 const echoJSON = (json) =>
-  () =>
-    Promise.resolve({ json: () => Promise.resolve(json) })
+  enhanceFetch(
+    () =>
+      Promise.resolve({ json: () => Promise.resolve(json) })
+  )
 
 describe('parseJSON', () => {
   describe('by default', () => {

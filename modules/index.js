@@ -1,8 +1,18 @@
 import { stringify } from 'query-string'
 
+const enhanceResponse = (response, handlers) =>
+  handlers.reduce(
+    (promise, handler) => promise.then(handler),
+    Promise.resolve(response)
+  )
+
 export const enhanceFetch = (fetch) =>
   (input, options = {}) =>
-    fetch(input, options)
+    fetch(input, options).then(response =>
+      options.responseHandlers
+        ? enhanceResponse(response, options.responseHandlers)
+        : response
+    )
 
 const enhancedFetch = enhanceFetch(fetch)
 
@@ -149,9 +159,11 @@ export const params = (object) => {
 /**
  * A helper for creating middleware that handles a successful response.
  */
-export const handleResponse = (callback) =>
-  (fetch, input, options) =>
-    fetch(input, options).then(callback)
+export const handleResponse = (handler) =>
+  (fetch, input, options = {}) => {
+    (options.responseHandlers || (options.responseHandlers = [])).push(handler)
+    return fetch(input, options)
+  }
 
 /**
  * Adds the text of the response to response[propertyName].

@@ -4,9 +4,6 @@ import {
   createFetch
 } from '../index'
 
-const echo = (fetch, input, options) =>
-  Promise.resolve({ input, options })
-
 describe('createFetch', () => {
   describe('with no middleware', () => {
     it('returns the global fetch function', () => {
