@@ -1,4 +1,5 @@
 ## [4.0.0-0]
+> Apr 27, 2016
 
 - `handleResponse` runs response handlers top to bottom, just like Express
 - Added `options.responseHandlers` array to specify an array of transforms to
@@ -12,18 +13,21 @@
 [4.0.0-0]: https://github.com/mjackson/http-client/compare/v3.1.0...v4.0.0-0
 
 ## [3.1.0]
+> Mar 28, 2016
 
 - Added the `init` middleware
 
 [3.1.0]: https://github.com/mjackson/http-client/compare/v3.0.0...v3.1.0
 
 ## [3.0.0]
+> Mar 22, 2016
 
 - Require consumers to provide their own global `fetch` function
 
 [3.0.0]: https://github.com/mjackson/http-client/compare/v2.4.2...v3.0.0
 
 ## [2.4.2]
+> Mar 22, 2016
 
 - Fix bundling with Browserify
 
