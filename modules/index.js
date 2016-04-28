@@ -1,11 +1,21 @@
 import { stringify } from 'query-string'
 
+const stringifyQuery = (query) =>
+  (typeof query === 'string' ? query : stringify(query))
+
+const stringifyJSON = (json) =>
+  (typeof json === 'string' ? json : JSON.stringify(json))
+
 const enhanceResponse = (response, handlers) =>
   handlers.reduce(
     (promise, handler) => promise.then(handler),
     Promise.resolve(response)
   )
 
+/**
+ * Returns a new fetch function that knows how to execute
+ * options.responseHandlers on the response.
+ */
 export const enhanceFetch = (fetch) =>
   (input, options = {}) =>
     fetch(input, options).then(response =>
@@ -14,18 +24,12 @@ export const enhanceFetch = (fetch) =>
         : response
     )
 
-const enhancedFetch = enhanceFetch(fetch)
+const globalFetch = enhanceFetch(fetch)
 
-const stringifyJSON = (json) =>
-  (typeof json === 'string' ? json : JSON.stringify(json))
-
-const stringifyQuery = (query) =>
-  (typeof query === 'string' ? query : stringify(query))
+export { globalFetch as fetch }
 
 const emptyStack = (fetch, input, options) =>
   fetch(input, options)
-
-export { enhancedFetch as fetch }
 
 /**
  * Creates a middleware "stack" function using all arguments.
@@ -50,7 +54,7 @@ export const createStack = (...middleware) => {
  */
 export const createFetch = (...middleware) => {
   if (middleware.length === 0)
-    return enhancedFetch
+    return globalFetch
 
   const stack = createStack(...middleware)
 
