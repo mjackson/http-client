@@ -61,17 +61,21 @@ http-client also exports a base `fetch` function if you need it (i.e. don't want
 
 ## Top-level API
 
-#### `fetch([input], [options])`
-
-An enhanced `fetch` function. Use this directly if you don't need any middleware.
-
 #### `createFetch(...middleware)`
 
-Creates a `fetch` function that is fronted by some middleware. This function has the same signature as the enhanced `fetch` function in the top-level API.
+Creates an enhanced `fetch` function that is fronted by some middleware.
 
 #### `createStack(...middleware)`
 
 Combines several middleware into one, in the same order they are provided as arguments. Use this function to create re-usable [middleware stacks](#stacks).
+
+#### `enhanceFetch(fetch)`
+
+Returns an "enhanced" version of the given `fetch` function that uses an array of transforms in `options.responseHandlers` to modify the response after it is received.
+
+#### `fetch([input], [options])`
+
+An enhanced `fetch` function. Use this directly if you don't need any middleware.
 
 #### `handleResponse(handler)`
 
