@@ -75,45 +75,21 @@ Combines several middleware into one, in the same order they are provided as arg
 
 #### `handleResponse(handler)`
 
-A helper for creating middleware that enhances the `response` object in some way. The `handler` function should return the new response value, or a promise for it. This function is used internally to create the `parseText` and `parseJSON` middleware.
+A helper for creating middleware that enhances the `response` object in some way. The `handler` function should return the new response value, or a promise for it. Response handlers run in the order they are defined.
 
 ## Middleware
 
 http-client provides a variety of middleware that may be used to extend the functionality of the client. Out of the box, http-client ships with the following middleware:
 
-#### `init(propertyName, value)`
+#### `accept(contentType)`
 
-Sets the value of an arbitrary property in the options object.
-
-```js
-import { createFetch, init } from 'http-client'
-
-const fetch = createFetch(
-  init('credentials', 'include')
-)
-```
-
-#### `method(verb)`
-
-Sets the request method.
+Adds an `Accept` header to the request.
 
 ```js
-import { createFetch, method } from 'http-client'
+import { createFetch, accept } from 'http-client'
 
 const fetch = createFetch(
-  method('POST')
-)
-```
-
-#### `header(name, value)`
-
-Adds a header to the request.
-
-```js
-import { createFetch, header } from 'http-client'
-
-const fetch = createFetch(
-  header('Content-Type', 'application/json')
+  accept('application/json')
 )
 ```
 
@@ -126,18 +102,6 @@ import { createFetch, auth } from 'http-client'
 
 const fetch = createFetch(
   auth('Bearer ' + oauth2Token)
-)
-```
-
-#### `accept(contentType)`
-
-Adds an `Accept` header to the request.
-
-```js
-import { createFetch, accept } from 'http-client'
-
-const fetch = createFetch(
-  accept('application/json')
 )
 ```
 
@@ -155,10 +119,6 @@ const fetch = createFetch(
 fetch('/customers/5') // GET https://api.stripe.com/v1/customers/5
 ```
 
-#### `query(object)`
-
-Adds the data in the given object (or string) to the query string of the request URL.
-
 #### `body(content, contentType)`
 
 Sets the given `content` string as the request body.
@@ -171,9 +131,45 @@ const fetch = createFetch(
 )
 ```
 
+#### `header(name, value)`
+
+Adds a header to the request.
+
+```js
+import { createFetch, header } from 'http-client'
+
+const fetch = createFetch(
+  header('Content-Type', 'application/json')
+)
+```
+
+#### `init(propertyName, value)`
+
+Sets the value of an arbitrary property in the options object.
+
+```js
+import { createFetch, init } from 'http-client'
+
+const fetch = createFetch(
+  init('credentials', 'include')
+)
+```
+
 #### `json(object)`
 
 Adds the data in the given object as JSON to the request body.
+
+#### `method(verb)`
+
+Sets the request method.
+
+```js
+import { createFetch, method } from 'http-client'
+
+const fetch = createFetch(
+  method('POST')
+)
+```
 
 #### `params(object)`
 
@@ -194,6 +190,22 @@ const fetch = createFetch(
 )
 ```
 
+#### `parseJSON(propertyName = 'jsonData')`
+
+Reads the response body as JSON and puts it on `response.jsonData`.
+
+```js
+import { createFetch, parseJSON } from 'http-client'
+
+const fetch = createFetch(
+  parseJSON()
+)
+
+fetch(input).then(response => {
+  console.log(response.jsonData)
+})
+```
+
 #### `parseText(propertyName = 'textString')`
 
 Reads the response body as text and puts it on `response.textString`.
@@ -210,21 +222,9 @@ fetch(input).then(response => {
 })
 ```
 
-#### `parseJSON(propertyName = 'jsonData')`
+#### `query(object)`
 
-Reads the response body as JSON and puts it on `response.jsonData`.
-
-```js
-import { createFetch, parseJSON } from 'http-client'
-
-const fetch = createFetch(
-  parseJSON()
-)
-
-fetch(input).then(response => {
-  console.log(response.jsonData)
-})
-```
+Adds the data in the given object (or string) to the query string of the request URL.
 
 #### `requestInfo()`
 
