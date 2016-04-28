@@ -63,7 +63,7 @@ http-client also exports a base `fetch` function if you need it (i.e. don't want
 
 #### `createFetch(...middleware)`
 
-Creates an enhanced `fetch` function that is fronted by some middleware.
+Creates an [enhanced](#enhancefetchfetch) `fetch` function that is fronted by some middleware.
 
 #### `createStack(...middleware)`
 
@@ -75,7 +75,7 @@ Returns an "enhanced" version of the given `fetch` function that uses an array o
 
 #### `fetch([input], [options])`
 
-An enhanced `fetch` function. Use this directly if you don't need any middleware.
+An [enhanced](#enhancefetchfetch) `fetch` function. Use this directly if you don't need any middleware.
 
 #### `handleResponse(handler)`
 
