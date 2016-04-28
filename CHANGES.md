@@ -1,5 +1,9 @@
 ## [HEAD]
 
+- Added `options.fetch` to fetch functions created using `createFetch` so users
+  can swap out usage of the "global" fetch function, which makes testing easier
+- Added `enhanceFetch` to top-level exports for adding `options.responseHandlers`
+  support to an arbitrary `fetch` function
 - Added `options.responseHandlers` array to specify an array of transforms to run
   on the response after it is received. `handleResponse` uses this to run handlers
   from top to bottom, just like Express

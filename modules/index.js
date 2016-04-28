@@ -59,8 +59,8 @@ export const createFetch = (...middleware) => {
   const stack = createStack(...middleware)
 
   return enhanceFetch(
-    (input, options) =>
-      stack(fetch, input, options)
+    (input, options = {}) =>
+      stack(options.fetch || fetch, input, options)
   )
 }
 
