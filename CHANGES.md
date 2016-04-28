@@ -1,3 +1,12 @@
+## [HEAD]
+
+- Added `options.responseHandlers` array to specify an array of transforms to run
+  on the response after it is received. `handleResponse` uses this to run handlers
+  from top to bottom, just like Express
+- Removed callback API to preserve `fetch` method signature
+
+[HEAD]: https://github.com/mjackson/http-client/compare/v3.1.0...HEAD
+
 ## [3.1.0]
 
 - Added the `init` middleware
