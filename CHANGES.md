@@ -1,12 +1,12 @@
 ## [4.0.0-0]
 
-- Added `options.fetch` to fetch functions created using `createFetch` so users
-  can swap out usage of the "global" fetch function, which makes testing easier
+- `handleResponse` runs response handlers top to bottom, just like Express
+- Added `options.responseHandlers` array to specify an array of transforms to
+  run on the response after it is received
 - Added `enhanceFetch` to top-level exports for adding `options.responseHandlers`
   support to an arbitrary `fetch` function
-- Added `options.responseHandlers` array to specify an array of transforms to run
-  on the response after it is received. `handleResponse` uses this to run handlers
-  from top to bottom, just like Express
+- Added `options.fetch` to fetch functions created using `createFetch` so users
+  can swap out usage of the "global" fetch function, which makes testing easier
 - Removed callback API to preserve `fetch` method signature
 
 [4.0.0-0]: https://github.com/mjackson/http-client/compare/v3.1.0...v4.0.0-0
