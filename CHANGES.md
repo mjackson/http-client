@@ -1,4 +1,4 @@
-## [HEAD]
+## [4.0.0-0]
 
 - Added `options.fetch` to fetch functions created using `createFetch` so users
   can swap out usage of the "global" fetch function, which makes testing easier
@@ -9,7 +9,7 @@
   from top to bottom, just like Express
 - Removed callback API to preserve `fetch` method signature
 
-[HEAD]: https://github.com/mjackson/http-client/compare/v3.1.0...HEAD
+[4.0.0-0]: https://github.com/mjackson/http-client/compare/v3.1.0...v4.0.0-0
 
 ## [3.1.0]
 
