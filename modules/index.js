@@ -18,11 +18,13 @@ const enhanceResponse = (response, handlers) =>
  */
 export const enhanceFetch = (fetch) =>
   (input, options = {}) =>
-    fetch(input, options).then(response =>
-      options.responseHandlers
-        ? enhanceResponse(response, options.responseHandlers)
+    fetch(input, options).then(response => {
+      const responseHandlers = options.responseHandlers
+
+      return responseHandlers && responseHandlers.length
+        ? enhanceResponse(response, responseHandlers)
         : response
-    )
+    })
 
 const globalFetch = enhanceFetch(fetch)
 
@@ -163,17 +165,20 @@ export const params = (object) => {
 /**
  * A helper for creating middleware that handles a successful response.
  */
-export const handleResponse = (handler) =>
+export const onResponse = (handler) =>
   (fetch, input, options = {}) => {
     (options.responseHandlers || (options.responseHandlers = [])).push(handler)
     return fetch(input, options)
   }
 
+// Deprecated.
+export const handleResponse = onResponse
+
 /**
  * Adds the text of the response to response[propertyName].
  */
 export const parseText = (propertyName = 'textString') =>
-  handleResponse(response =>
+  onResponse(response =>
     response.text().then(value => {
       response[propertyName] = value
       return response
@@ -184,7 +189,7 @@ export const parseText = (propertyName = 'textString') =>
  * Adds the JSON of the response to response[propertyName].
  */
 export const parseJSON = (propertyName = 'jsonData') =>
-  handleResponse(response =>
+  onResponse(response =>
     response.json()
       .then(value => {
         response[propertyName] = value

@@ -1,5 +1,5 @@
 import expect from 'expect'
-import { enhanceFetch, createStack, handleResponse } from '../index'
+import { enhanceFetch, createStack, onResponse } from '../index'
 
 const echo = enhanceFetch(
   (input, options) =>
@@ -16,12 +16,12 @@ const multiply = (n) =>
     return response
   }
 
-describe('handleResponse', () => {
+describe('onResponse', () => {
   it('executes response handlers in the order they were defined', () => {
     const stack = createStack(
-      handleResponse(multiply(2)),
-      handleResponse(multiply(3)),
-      handleResponse(multiply(4))
+      onResponse(multiply(2)),
+      onResponse(multiply(3)),
+      onResponse(multiply(4))
     )
 
     return stack(echo).then(

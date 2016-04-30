@@ -77,7 +77,7 @@ Returns an "enhanced" version of the given `fetch` function that uses an array o
 
 An [enhanced](#enhancefetchfetch) `fetch` function. Use this directly if you don't need any middleware.
 
-#### `handleResponse(handler)`
+#### `onResponse(handler)`
 
 A helper for creating middleware that enhances the `response` object in some way. The `handler` function should return the new response value, or a promise for it. Response handlers run in the order they are defined.
 
