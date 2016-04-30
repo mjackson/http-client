@@ -4,6 +4,13 @@
 
 [HEAD]: https://github.com/mjackson/http-client/compare/v4.0.0-0...HEAD
 
+## [4.0.0]
+> Apr 28, 2015
+
+- Updated docs
+
+[4.0.0]: https://github.com/mjackson/http-client/compare/v4.0.0-0...v4.0.0
+
 ## [4.0.0-0]
 > Apr 27, 2016
 
