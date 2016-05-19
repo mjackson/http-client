@@ -103,8 +103,8 @@ export const auth = (value) =>
 /**
  * Adds an Accept header to the request.
  */
-export const accept = (contentType) =>
-  header('Accept', contentType)
+export const accept = (value) =>
+  header('Accept', value)
 
 /**
  * Adds the given string at the front of the request URL.
