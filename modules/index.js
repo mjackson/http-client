@@ -21,7 +21,7 @@ export const enhanceFetch = (fetch) =>
     fetch(input, options).then(response => {
       const responseHandlers = options.responseHandlers
 
-      return responseHandlers && responseHandlers.length
+      return (responseHandlers && responseHandlers.length)
         ? enhanceResponse(response, responseHandlers)
         : response
     })
