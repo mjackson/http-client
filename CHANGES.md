@@ -1,6 +1,7 @@
 ## HEAD
 
 - Renamed `handleResponse` to `onResponse`
+- Fixed logic error with response handlers
 
 [HEAD]: https://github.com/mjackson/http-client/compare/v4.0.0-0...HEAD
 
