@@ -20,7 +20,7 @@
     "test": "npm run lint && karma start"
   },
   "dependencies": {
-    "query-string": "^4.1.0"
+    "query-string": "^4.2.0"
   },
   "devDependencies": {
     "babel-cli": "^6.5.1",
