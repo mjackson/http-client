@@ -43,7 +43,7 @@
     "karma-webpack": "^1.7.0",
     "mocha": "^2.4.5",
     "pretty-bytes": "^3.0.1",
-    "readline-sync": "^1.4.1",
+    "readline-sync": "^1.4.4",
     "rimraf": "^2.5.2",
     "webpack": "^1.12.14"
   },
