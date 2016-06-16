@@ -4,24 +4,26 @@ import { body } from '../index'
 const echo = (input, options) =>
   Promise.resolve({ input, options })
 
+const str = 'hello λ world'
+
 describe('body', () => {
   it('sets the body of the request', () => {
-    body('hello world')(echo).then(({ options }) =>
-      expect(options.body).toEqual('hello world')
+    body(str)(echo).then(({ options }) =>
+      expect(options.body).toEqual(str)
     )
   })
 
   describe('when the content has a length property', () => {
     it('sets the Content-Length request header', () =>
-      body('hello world')(echo).then(({ options }) =>
-        expect(options.headers['Content-Length']).toEqual('hello world'.length)
+      body(str)(echo).then(({ options }) =>
+        expect(options.headers['Content-Length']).toEqual(Buffer.byteLength(str))
       )
     )
   })
 
   describe('when the contentType argument is given', () => {
     it('sets the Content-Type request header', () =>
-      body('hello world', 'text/plain')(echo).then(({ options }) =>
+      body(str, 'text/plain')(echo).then(({ options }) =>
         expect(options.headers['Content-Type']).toEqual('text/plain')
       )
     )

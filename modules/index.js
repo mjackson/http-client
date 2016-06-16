@@ -131,7 +131,7 @@ export const body = (content, contentType) =>
     options.body = content
 
     if (content.length != null)
-      setHeader(options, 'Content-Length', content.length)
+      setHeader(options, 'Content-Length', Buffer.byteLength(content))
 
     if (contentType)
       setHeader(options, 'Content-Type', contentType)
