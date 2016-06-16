@@ -1,4 +1,5 @@
 import { stringify } from 'query-string'
+import byteLength from 'byte-length'
 
 const stringifyQuery = (query) =>
   (typeof query === 'string' ? query : stringify(query))
@@ -131,7 +132,7 @@ export const body = (content, contentType) =>
     options.body = content
 
     if (content.length != null)
-      setHeader(options, 'Content-Length', Buffer.byteLength(content))
+      setHeader(options, 'Content-Length', byteLength(content))
 
     if (contentType)
       setHeader(options, 'Content-Type', contentType)

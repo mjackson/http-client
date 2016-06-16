@@ -1,5 +1,6 @@
 import expect from 'expect'
 import { body } from '../index'
+import byteLength from 'byte-length'
 
 const echo = (input, options) =>
   Promise.resolve({ input, options })
@@ -16,7 +17,7 @@ describe('body', () => {
   describe('when the content has a length property', () => {
     it('sets the Content-Length request header', () =>
       body(str)(echo).then(({ options }) =>
-        expect(options.headers['Content-Length']).toEqual(Buffer.byteLength(str))
+        expect(options.headers['Content-Length']).toEqual(byteLength(str))
       )
     )
   })

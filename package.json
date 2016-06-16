@@ -20,6 +20,7 @@
     "test": "npm run lint && karma start"
   },
   "dependencies": {
+    "byte-length": "^0.1.1",
     "query-string": "^4.1.0"
   },
   "devDependencies": {
