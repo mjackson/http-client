@@ -10,7 +10,7 @@ if (inInstall())
 const exec = (command) =>
   execSync(command, { stdio: 'inherit' })
 
-exec('npm run build-cjs')
+exec('npm run build-lib')
 exec('npm run build-umd')
 exec('npm run build-min')
 
