@@ -39,7 +39,7 @@
     "karma": "^0.13.21",
     "karma-browserstack-launcher": "^1.0.0",
     "karma-chrome-launcher": "^1.0.1",
-    "karma-mocha": "^1.0.1",
+    "karma-mocha": "^1.1.1",
     "karma-mocha-reporter": "^2.0.3",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
