@@ -10,13 +10,13 @@
     "umd"
   ],
   "scripts": {
-    "lint": "eslint modules",
     "build": "node ./scripts/build.js",
     "build-lib": "rimraf lib && babel ./modules -d lib --ignore '__tests__'",
     "build-min": "webpack -p modules/index.js umd/http-client.min.js",
     "build-umd": "webpack modules/index.js umd/http-client.js",
     "release": "node ./scripts/release.js",
     "prepublish": "node ./scripts/build.js",
+    "lint": "eslint modules",
     "test": "npm run lint && karma start"
   },
   "dependencies": {
@@ -36,11 +36,11 @@
     "gzip-size": "^3.0.0",
     "in-publish": "^2.0.0",
     "isomorphic-fetch": "^2.2.1",
-    "karma": "^0.13.21",
-    "karma-browserstack-launcher": "^1.0.0",
+    "karma": "^1.1.2",
+    "karma-browserstack-launcher": "^1.0.1",
     "karma-chrome-launcher": "^1.0.1",
-    "karma-mocha": "^1.0.1",
-    "karma-mocha-reporter": "^2.0.3",
+    "karma-mocha": "^1.1.1",
+    "karma-mocha-reporter": "^2.0.4",
     "karma-sourcemap-loader": "^0.3.7",
     "karma-webpack": "^1.7.0",
     "mocha": "^2.4.5",

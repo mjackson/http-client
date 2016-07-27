@@ -1,8 +1,8 @@
-var webpack = require('webpack')
+const webpack = require('webpack')
+const projectName = require('./package').name
 
-module.exports = function (config) {
-  var customLaunchers = {
-    // Browsers to run on BrowserStack.
+module.exports = (config) => {
+  const customLaunchers = {
     BS_Chrome: {
       base: 'BrowserStack',
       os: 'Windows',
@@ -24,14 +24,7 @@ module.exports = function (config) {
       browser: 'safari',
       browser_version: '9.0'
     },
-    BS_MobileSafari: {
-      base: 'BrowserStack',
-      os: 'ios',
-      os_version: '8.3',
-      browser: 'iphone',
-      real_mobile: false
-    },
-    BS_MobileSafari: {
+    BS_MobileSafari9: {
       base: 'BrowserStack',
       os: 'ios',
       os_version: '9.1',
@@ -77,9 +70,8 @@ module.exports = function (config) {
         ]
       },
       plugins: [
-        new webpack.IgnorePlugin(/node-fetch/),
         new webpack.DefinePlugin({
-          'typeof window': JSON.stringify('object')
+          'process.env.NODE_ENV': JSON.stringify('test')
         })
       ]
     },
@@ -91,32 +83,23 @@ module.exports = function (config) {
 
   if (process.env.USE_CLOUD) {
     config.browsers = Object.keys(customLaunchers)
-    config.reporters[0] = 'dots'
+    config.reporters = [ 'dots' ]
+    config.concurrency = 2
+
     config.browserDisconnectTimeout = 10000
     config.browserDisconnectTolerance = 3
-    config.browserNoActivityTimeout = 30000
-    config.captureTimeout = 120000
 
     if (process.env.TRAVIS) {
-      var buildLabel = 'TRAVIS #' + process.env.TRAVIS_BUILD_NUMBER + ' (' + process.env.TRAVIS_BUILD_ID + ')'
-
       config.browserStack = {
-        username: process.env.BROWSER_STACK_USERNAME,
-        accessKey: process.env.BROWSER_STACK_ACCESS_KEY,
-        pollingTimeout: 10000,
-        startTunnel: true,
-        project: 'http-client',
-        build: buildLabel,
+        project: projectName,
+        build: process.env.TRAVIS_BUILD_NUMBER,
         name: process.env.TRAVIS_JOB_NUMBER
       }
 
       config.singleRun = true
     } else {
       config.browserStack = {
-        username: process.env.BROWSER_STACK_USERNAME,
-        accessKey: process.env.BROWSER_STACK_ACCESS_KEY,
-        pollingTimeout: 10000,
-        startTunnel: true
+        project: projectName
       }
     }
   }
