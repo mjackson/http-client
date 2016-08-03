@@ -2,6 +2,7 @@
   "name": "http-client",
   "version": "4.1.0",
   "description": "Compose HTTP clients using JavaScript's fetch API",
+  "repository": "mjackson/http-client",
   "author": "Michael Jackson",
   "license": "MIT",
   "main": "lib",
@@ -48,9 +49,5 @@
     "readline-sync": "^1.4.1",
     "rimraf": "^2.5.2",
     "webpack": "^1.12.14"
-  },
-  "repository": {
-    "type": "git",
-    "url": "https://github.com/mjackson/http-client.git"
   }
 }
