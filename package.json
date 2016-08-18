@@ -48,6 +48,6 @@
     "pretty-bytes": "^3.0.1",
     "readline-sync": "^1.4.1",
     "rimraf": "^2.5.2",
-    "webpack": "^1.12.14"
+    "webpack": "^1.13.2"
   }
 }
