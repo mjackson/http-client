@@ -31,10 +31,10 @@ var fetch = require('http-client').fetch
 var createFetch = require('http-client').createFetch
 ```
 
-The UMD build is also available on [npmcdn](https://npmcdn.com):
+The UMD build is also available on [unpkg](https://unpkg.com):
 
 ```html
-<script src="https://npmcdn.com/http-client/umd/http-client.min.js"></script>
+<script src="https://unpkg.com/http-client/umd/http-client.min.js"></script>
 ```
 
 You can find the library on `window.HTTPClient`.
