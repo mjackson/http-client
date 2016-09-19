@@ -1,6 +1,8 @@
 import { stringify } from 'query-string'
 import byteLength from 'byte-length'
 
+const globalFetch = fetch
+
 const stringifyQuery = (query) =>
   (typeof query === 'string' ? query : stringify(query))
 
@@ -27,9 +29,9 @@ export const enhanceFetch = (fetch) =>
         : response
     })
 
-const globalFetch = enhanceFetch(fetch)
+const enhancedGlobalFetch = enhanceFetch(globalFetch)
 
-export { globalFetch as fetch }
+export { enhancedGlobalFetch as fetch }
 
 const emptyStack = (fetch, input, options) =>
   fetch(input, options)
@@ -57,7 +59,7 @@ export const createStack = (...middleware) => {
  */
 export const createFetch = (...middleware) => {
   if (middleware.length === 0)
-    return globalFetch
+    return enhancedGlobalFetch
 
   const stack = createStack(...middleware)
 
