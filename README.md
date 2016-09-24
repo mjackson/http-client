@@ -273,11 +273,19 @@ const fetchSinceBeginningOf2015 = createFetch(
 )
 ```
 
-Stacks are also useful when you don't have a global `fetch` function, e.g. in node. In those cases, you can still use http-client middleware and supply your own `fetch` (we recommend [node-fetch](https://www.npmjs.com/package/node-fetch)) function directly:
+Stacks are also useful when you don't have a global `fetch` function, e.g. in node. In those cases, you can still use http-client middleware and supply your own `fetch` (we recommend [node-fetch](https://www.npmjs.com/package/node-fetch)) function directly, but make sure you "enhance" it first:
 
 ```js
-const fetch = require('node-fetch')
-const { createStack, header, base } = require('http-client')
+const { enhanceFetch, createStack, header, base } = require('http-client')
+
+// We need to "enhance" node-fetch so it knows how to
+// handle responses correctly. Specifically, enhanceFetch
+// gives a fetch function the ability to run response
+// handlers registered with onResponse (which parseJSON,
+// used below, uses behind the scenes).
+const fetch = enhanceFetch(
+  require('node-fetch')
+)
 
 const stack = createStack(
   header('X-Auth-Key', key),
