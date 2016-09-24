@@ -18,7 +18,7 @@ Using [npm](https://www.npmjs.com/):
 
     $ npm install --save http-client
 
-http-client requires you to bring your own [global `fetch`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch) function. [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) is a great polyfill.
+http-client requires you to bring your own [global `fetch`](https://developer.mozilla.org/en-US/docs/Web/API/GlobalFetch/fetch) function (for convenience when using the top-level `createFetch` function). [isomorphic-fetch](https://github.com/matthew-andrews/isomorphic-fetch) is a great polyfill if you need to support environments that don't already have a global `fetch` function.
 
 Then, use as you would anything else:
 
