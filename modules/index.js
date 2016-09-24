@@ -204,6 +204,20 @@ export const parseText = (propertyName = 'textString') =>
   )
 
 /**
+ * A convenience wrapper for parsing and returning the text
+ * in the response body.
+ *
+ * Note: Because this middleware does not return a response,
+ * it should not be used before any others that expect an
+ * actual response object.
+ */
+export const getText = () =>
+  createStack(
+    parseText(),
+    onResponse(response => response.textString)
+  )
+
+/**
  * Adds the JSON of the response to response[propertyName].
  */
 export const parseJSON = (propertyName = 'jsonData') =>
@@ -215,6 +229,20 @@ export const parseJSON = (propertyName = 'jsonData') =>
       }, error => {
         throw new Error(`Error parsing JSON: ${error.stack}`)
       })
+  )
+
+/**
+ * A convenience wrapper for parsing and returning the JSON
+ * object in the response body.
+ *
+ * Note: Because this middleware does not return a response,
+ * it should not be used before any others that expect an
+ * actual response object.
+ */
+export const getJSON = () =>
+  createStack(
+    parseJSON(),
+    onResponse(response => response.jsonData)
   )
 
 /**
