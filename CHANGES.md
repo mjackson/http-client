@@ -1,3 +1,15 @@
+## HEAD
+
+- Build everything into the package root
+
+## [v4.1.0]
+> Jun 16, 2016
+
+- Fixed `Content-Length` header for non-ASCII content bodies (see [#8])
+
+[v4.1.0]: https://github.com/mjackson/http-client/compare/v4.0.1...v4.1.0
+[#8]: https://github.com/mjackson/http-client/pull/8
+
 ## [v4.0.1]
 
 - Renamed `handleResponse` to `onResponse`
