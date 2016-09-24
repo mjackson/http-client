@@ -11,6 +11,7 @@
 [#8]: https://github.com/mjackson/http-client/pull/8
 
 ## [v4.0.1]
+> May 18, 2016
 
 - Renamed `handleResponse` to `onResponse`
 - Fixed logic error with response handlers
