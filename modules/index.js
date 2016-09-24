@@ -38,6 +38,10 @@ const emptyStack = (fetch, input, options) =>
 
 /**
  * Creates a middleware "stack" function using all arguments.
+ * A "stack" is essentially a bunch of middleware composed into
+ * a single middleware function. Since all middleware share the
+ * same signature, stacks may further be combined to create more
+ * stacks with different characteristics.
  */
 export const createStack = (...middleware) => {
   if (middleware.length === 0)
@@ -56,6 +60,17 @@ export const createStack = (...middleware) => {
 
 /**
  * Creates a fetch function using all arguments as middleware.
+ * This function is a "stack" that uses the global fetch, so the
+ * following two examples are equivalent:
+ *
+ *   const stack = createStack(middleware)
+ *   stack(global.fetch, input, options)
+ *
+ *   const fetch = createFetch(middleware)
+ *   fetch(input, options)
+ *
+ * Thus, createFetch essentially eliminates some boilerplate code
+ * when you just want to use the global fetch function.
  */
 export const createFetch = (...middleware) => {
   if (middleware.length === 0)
