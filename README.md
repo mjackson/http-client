@@ -272,3 +272,19 @@ const fetchSinceBeginningOf2015 = createFetch(
   query({ since: '2015-01-01T00:00:00Z' })
 )
 ```
+
+Stacks are also useful when you don't have a global `fetch` function, e.g. in node. In those cases, you can still use http-client middleware and supply your own `fetch` (we recommend [node-fetch](https://www.npmjs.com/package/node-fetch)) function directly:
+
+```js
+const fetch = require('node-fetch')
+const { createStack, header, base } = require('http-client')
+
+const stack = createStack(
+  header('X-Auth-Key', key),
+  header('X-Auth-Email', email),
+  base('https://api.cloudflare.com/client/v4'),
+  parseJSON()
+)
+
+stack(fetch, input, options)
+```
