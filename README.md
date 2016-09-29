@@ -196,7 +196,7 @@ const fetch = createFetch(
 
 #### `parse(parser, as = 'body')`
 
-Reads the response body as JSON and puts it on `response.body` (or whatever `as` is). `parser` must be the name of a valid [Body](https://developer.mozilla.org/en-US/docs/Web/API/Body) parsing method. The following parsers are available in [the spec](https://fetch.spec.whatwg.org/#body-mixin):
+Reads the response body to completion, parses the response, and puts the result on `response.body` (or whatever `as` is). `parser` must be the name of a valid [Body](https://developer.mozilla.org/en-US/docs/Web/API/Body) parsing method. The following parsers are available in [the spec](https://fetch.spec.whatwg.org/#body-mixin):
 
 - `arrayBuffer`
 - `blob`
