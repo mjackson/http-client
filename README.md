@@ -194,37 +194,29 @@ const fetch = createFetch(
 )
 ```
 
-#### `parseJSON(propertyName = 'jsonData')`
+#### `parse(parser, as = 'body')`
 
-Reads the response body as JSON and puts it on `response.jsonData`.
+Reads the response body as JSON and puts it on `response.body` (or whatever `as` is). `parser` must be the name of a valid [Body](https://developer.mozilla.org/en-US/docs/Web/API/Body) parsing method. The following parsers are available in [the spec](https://fetch.spec.whatwg.org/#body-mixin):
+
+- `arrayBuffer`
+- `blob`
+- `formData`
+- `json`
+- `text`
 
 ```js
-import { createFetch, parseJSON } from 'http-client'
+import { createFetch, parse } from 'http-client'
 
 const fetch = createFetch(
-  parseJSON()
+  parse('json')
 )
 
 fetch(input).then(response => {
-  console.log(response.jsonData)
+  console.log(response.body)
 })
 ```
 
-#### `parseText(propertyName = 'textString')`
-
-Reads the response body as text and puts it on `response.textString`.
-
-```js
-import { createFetch, parseText } from 'http-client'
-
-const fetch = createFetch(
-  parseText()
-)
-
-fetch(input).then(response => {
-  console.log(response.textString)
-})
-```
+Note: Some parsers may not be available when using a `fetch` polyfill. In particular if you're using `node-fetch`, you should be aware of [its limitations](https://github.com/bitinn/node-fetch/blob/master/LIMITS.md).
 
 #### `query(object)`
 

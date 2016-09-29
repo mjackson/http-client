@@ -193,82 +193,29 @@ export const onResponse = (handler) =>
 export const handleResponse = onResponse
 
 /**
- * Adds the text of the response to response[propertyName].
+ * Reads the response stream to completion, parses its content
+ * using the given parser, and adds the result to response.body.
  */
-export const parseText = (propertyName = 'textString') =>
-  onResponse(response =>
-    response.text().then(value => {
-      response[propertyName] = value
+export const parse = (parser, as = 'body') =>
+  onResponse(response => {
+    if (as in response)
+      return response[as]
+
+    return response[parser]().then(body => {
+      response[as] = body
       return response
+    }, error => {
+      throw new Error(`parse('${parser}') error: ${error.stack}`)
     })
-  )
+  })
 
-/**
- * A convenience wrapper for parsing and returning the text
- * in the response body.
- *
- * Note: Because this middleware does not return a response,
- * it should not be used before any others that expect an
- * actual response object.
- */
-export const getText = () =>
-  createStack(
-    parseText(),
-    onResponse(response => response.textString)
-  )
-
-/**
- * Adds the JSON of the response to response[propertyName].
- */
+// Deprecated.
 export const parseJSON = (propertyName = 'jsonData') =>
-  onResponse(response =>
-    response.json()
-      .then(value => {
-        response[propertyName] = value
-        return response
-      }, error => {
-        throw new Error(`Error parsing JSON: ${error.stack}`)
-      })
-  )
+  parse('json', propertyName)
 
-/**
- * A convenience wrapper for parsing and returning the JSON
- * object in the response body.
- *
- * Note: Because this middleware does not return a response,
- * it should not be used before any others that expect an
- * actual response object.
- */
-export const getJSON = () =>
-  createStack(
-    parseJSON(),
-    onResponse(response => response.jsonData)
-  )
-
-/**
- * Adds the blob of the response to response[propertyName].
- */
-export const parseBlob = (propertyName = 'blobData') =>
-  onResponse(response =>
-    response.blob().then(value => {
-      response[propertyName] = value
-      return response
-    })
-  )
-
-/**
- * A convenience wrapper for parsing and returning the blob
- * object in the response body.
- *
- * Note: Because this middleware does not return a response,
- * it should not be used before any others that expect an
- * actual response object.
- */
-export const getBlob = () =>
-  createStack(
-    parseBlob(),
-    onResponse(response => response.blobData)
-  )
+// Deprecated.
+export const parseText = (propertyName = 'textString') =>
+  parse('text', propertyName)
 
 /**
  * Adds the requestURL and requestOptions properties to the

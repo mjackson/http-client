@@ -1,7 +1,8 @@
 ## HEAD
 
-- Add `getText` and `getJSON` response middleware for easily parsing and
-  returning response content in one shot
+- Add `parse(parser)` middleware that puts the result of the parse in `response.body`
+- Deprecated `parseJSON`, use `parse('json')` instead
+- Deprecated `parseText`, use `parse('text')` instead
 - Build everything into the package root
 
 ## [v4.1.0]
