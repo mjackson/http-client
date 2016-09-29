@@ -44,12 +44,12 @@ You can find the library on `window.HTTPClient`.
 http-client simplifies the process of creating flexible HTTP clients that work in both node and the browser. You create your own `fetch` function using the `createFetch` method, optionally passing [middleware](#middleware) as arguments.
 
 ```js
-import { createFetch, base, accept, parseJSON } from 'http-client'
+import { createFetch, base, accept, parse } from 'http-client'
 
 const fetch = createFetch(
   base('https://api.stripe.com/v1'),  // Prefix all request URLs
   accept('application/json'),         // Set "Accept: application/json" in the request headers
-  parseJSON()                         // Read the response as JSON and put it in response.jsonData
+  parse('json')                       // Read the response as JSON and put it in response.body
 )
 
 fetch('/customers/5').then(response => {
@@ -246,13 +246,13 @@ Middleware may be combined together into re-usable middleware "stacks" using `cr
 This is useful when you have a common set of functionality that you'd like to share between several different `fetch` methods, e.g.:
 
 ```js
-import { createStack, createFetch, header, base, parseJSON } from 'http-client'
+import { createStack, createFetch, header, base, parse } from 'http-client'
 
 const commonStack = createStack(
   header('X-Auth-Key', key),
   header('X-Auth-Email', email),
   base('https://api.cloudflare.com/client/v4'),
-  parseJSON()
+  parse('json')
 )
 
 // This fetch function can be used standalone...
@@ -273,7 +273,7 @@ const { enhanceFetch, createStack, header, base } = require('http-client')
 // We need to "enhance" node-fetch so it knows how to
 // handle responses correctly. Specifically, enhanceFetch
 // gives a fetch function the ability to run response
-// handlers registered with onResponse (which parseJSON,
+// handlers registered with onResponse (which parse,
 // used below, uses behind the scenes).
 const fetch = enhanceFetch(
   require('node-fetch')
@@ -283,7 +283,7 @@ const stack = createStack(
   header('X-Auth-Key', key),
   header('X-Auth-Email', email),
   base('https://api.cloudflare.com/client/v4'),
-  parseJSON()
+  parse('json')
 )
 
 stack(fetch, input, options)
