@@ -1,9 +1,12 @@
-## HEAD
+## [v4.2.0]
+> Sep 29, 2016
 
 - Add `parse(parser)` middleware that puts the result of the parse in `response.body`
 - Deprecated `parseJSON`, use `parse('json')` instead
 - Deprecated `parseText`, use `parse('text')` instead
 - Build everything into the package root
+
+[v4.2.0]: https://github.com/mjackson/http-client/compare/v4.1.0...v4.2.0
 
 ## [v4.1.0]
 > Jun 16, 2016
