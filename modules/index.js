@@ -246,6 +246,31 @@ export const getJSON = () =>
   )
 
 /**
+ * Adds the blob of the response to response[propertyName].
+ */
+export const parseBlob = (propertyName = 'blobData') =>
+  onResponse(response =>
+    response.blob().then(value => {
+      response[propertyName] = value
+      return response
+    })
+  )
+
+/**
+ * A convenience wrapper for parsing and returning the blob
+ * object in the response body.
+ *
+ * Note: Because this middleware does not return a response,
+ * it should not be used before any others that expect an
+ * actual response object.
+ */
+export const getBlob = () =>
+  createStack(
+    parseBlob(),
+    onResponse(response => response.blobData)
+  )
+
+/**
  * Adds the requestURL and requestOptions properties to the
  * response/error. Mainly useful in testing/debugging.
  */
