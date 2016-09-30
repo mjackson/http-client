@@ -1,5 +1,5 @@
 import expect from 'expect'
-import { enhanceFetch, parseText } from '../index'
+import { enhanceFetch, parse } from '../index'
 
 const echoText = (text) =>
   enhanceFetch(
@@ -7,18 +7,18 @@ const echoText = (text) =>
       Promise.resolve({ text: () => Promise.resolve(text) })
   )
 
-describe('parseText', () => {
+describe('parse("text")', () => {
   describe('by default', () => {
-    it('sets the textString property of the response', () =>
-      parseText()(echoText('hello world')).then(response =>
-        expect(response.textString).toEqual('hello world')
+    it('sets the body property of the response', () =>
+      parse('text')(echoText('hello world')).then(response =>
+        expect(response.body).toEqual('hello world')
       )
     )
   })
 
   describe('when a "custom" property name is provided', () => {
     it('sets the "custom" property of the response', () =>
-      parseText('custom')(echoText('hello world')).then(response =>
+      parse('text', 'custom')(echoText('hello world')).then(response =>
         expect(response.custom).toEqual('hello world')
       )
     )

@@ -1,5 +1,5 @@
 import expect from 'expect'
-import { enhanceFetch, parseJSON } from '../index'
+import { enhanceFetch, parse } from '../index'
 
 const echoJSON = (json) =>
   enhanceFetch(
@@ -7,18 +7,18 @@ const echoJSON = (json) =>
       Promise.resolve({ json: () => Promise.resolve(json) })
   )
 
-describe('parseJSON', () => {
+describe('parse("json")', () => {
   describe('by default', () => {
-    it('sets the jsonData property of the response', () =>
-      parseJSON()(echoJSON({ hello: 'world' })).then(response =>
-        expect(response.jsonData).toEqual({ hello: 'world' })
+    it('sets the body property of the response', () =>
+      parse('json')(echoJSON({ hello: 'world' })).then(response =>
+        expect(response.body).toEqual({ hello: 'world' })
       )
     )
   })
 
   describe('when a "custom" property name is provided', () => {
     it('sets the "custom" property of the response', () =>
-      parseJSON('custom')(echoJSON({ hello: 'world' })).then(response =>
+      parse('json', 'custom')(echoJSON({ hello: 'world' })).then(response =>
         expect(response.custom).toEqual({ hello: 'world' })
       )
     )
