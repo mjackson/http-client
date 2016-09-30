@@ -125,6 +125,23 @@ const fetch = createFetch(
 )
 ```
 
+#### `debug()`
+
+Adds a `debug` property to the response or error object so you can inspect them. Mainly useful for testing/debugging (should run *after* all other middleware).
+
+```js
+import { createFetch, debug } from 'http-client'
+
+const fetch = createFetch(
+  // ... other middleware
+  debug()
+)
+
+fetch(input).then(response => {
+  console.log(response.debug.input, response.debug.options)
+})
+```
+
 #### `header(name, value)`
 
 Adds a header to the request.
@@ -223,23 +240,6 @@ const fetch = createFetch(
   recv(response => (console.log('runs first'), response)),
   recv(response => (console.log('runs second'), response))
 )
-```
-
-#### `requestInfo()`
-
-Adds `requestURL` and `requestOptions` properties to the response (or error) object so you can inspect them. Mainly useful for testing/debugging (should be put last in the list of middleware).
-
-```js
-import { createFetch, requestInfo } from 'http-client'
-
-const fetch = createFetch(
-  // ...
-  requestInfo()
-)
-
-fetch(input).then(response => {
-  console.log(response.requestURL, response.requestOptions)
-})
 ```
 
 ## Stacks
