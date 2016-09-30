@@ -32,10 +32,6 @@ export const enableRecv = (fetch) =>
 // Deprecated.
 export const enhanceFetch = enableRecv
 
-const primaryFetch = enableRecv(global.fetch)
-
-export { primaryFetch as fetch }
-
 const emptyStack = (fetch, input, options) =>
   fetch(input, options)
 
@@ -77,7 +73,7 @@ export const createStack = (...middleware) => {
  */
 export const createFetch = (...middleware) => {
   if (middleware.length === 0)
-    return primaryFetch
+    return global.fetch
 
   const stack = createStack(...middleware)
 
@@ -86,6 +82,10 @@ export const createFetch = (...middleware) => {
       stack(global.fetch, input, options)
   )
 }
+
+// Deprecated.
+const mainFetch = enableRecv(global.fetch)
+export { mainFetch as fetch }
 
 /**
  * Sets a property name and value in the options object.
