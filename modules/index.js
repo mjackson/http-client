@@ -222,9 +222,22 @@ export const parseText = (propertyName = 'textString') =>
   parse('text', propertyName)
 
 /**
- * Adds the requestURL and requestOptions properties to the
- * response/error. Mainly useful in testing/debugging.
+ * Adds a debug property to the response/error that contains
+ * the input and options used in the request. Mainly useful in
+ * testing and debugging.
  */
+export const debug = () =>
+  (fetch, input, options) =>
+    fetch(input, options)
+      .then(response => {
+        response.debug = { input, options }
+        return response
+      }, (error = new Error) => {
+        error.debug = { input, options }
+        throw error
+      })
+
+// Deprecated.
 export const requestInfo = () =>
   (fetch, input, options) =>
     fetch(input, options)

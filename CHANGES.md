@@ -2,6 +2,7 @@
 
 - Rename `onResponse` to `recv` and `enhanceFetch` to `enableRecv`. This makes the association more clear.
 - Deprecated redundant top-level `fetch` export. Use the global `fetch` function directly instead.
+- Added `debug` middleware, deprecated `requestInfo`.
 
 ## [v4.2.0]
 > Sep 29, 2016
