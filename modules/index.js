@@ -9,7 +9,7 @@ const stringifyQuery = (query) =>
 const stringifyJSON = (json) =>
   (typeof json === 'string' ? json : JSON.stringify(json))
 
-const enhanceResponse = (response, handlers) =>
+const processResponse = (response, handlers) =>
   handlers.reduce(
     (promise, handler) => promise.then(handler),
     Promise.resolve(response)
@@ -19,19 +19,22 @@ const enhanceResponse = (response, handlers) =>
  * Returns a new fetch function that knows how to execute
  * options.responseHandlers on the response.
  */
-export const enhanceFetch = (fetch) =>
+export const enableRecv = (fetch) =>
   (input, options = {}) =>
     fetch(input, options).then(response => {
       const responseHandlers = options.responseHandlers
 
       return (responseHandlers && responseHandlers.length)
-        ? enhanceResponse(response, responseHandlers)
+        ? processResponse(response, responseHandlers)
         : response
     })
 
-const enhancedGlobalFetch = enhanceFetch(global.fetch)
+// Deprecated.
+export const enhanceFetch = enableRecv
 
-export { enhancedGlobalFetch as fetch }
+const primaryFetch = enableRecv(global.fetch)
+
+export { primaryFetch as fetch }
 
 const emptyStack = (fetch, input, options) =>
   fetch(input, options)
@@ -74,11 +77,11 @@ export const createStack = (...middleware) => {
  */
 export const createFetch = (...middleware) => {
   if (middleware.length === 0)
-    return enhancedGlobalFetch
+    return primaryFetch
 
   const stack = createStack(...middleware)
 
-  return enhanceFetch(
+  return enableRecv(
     (input, options = {}) =>
       stack(global.fetch, input, options)
   )
@@ -183,21 +186,22 @@ export const params = (object) => {
 /**
  * A helper for creating middleware that handles a successful response.
  */
-export const onResponse = (handler) =>
+export const recv = (handler) =>
   (fetch, input, options = {}) => {
     (options.responseHandlers || (options.responseHandlers = [])).push(handler)
     return fetch(input, options)
   }
 
 // Deprecated.
-export const handleResponse = onResponse
+export const handleResponse = recv
+export const onResponse = recv
 
 /**
  * Reads the response stream to completion, parses its content
  * using the given parser, and adds the result to response.body.
  */
 export const parse = (parser, as = 'body') =>
-  onResponse(response => {
+  recv(response => {
     if (as in response)
       return response[as]
 

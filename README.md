@@ -57,29 +57,19 @@ fetch('/customers/5').then(response => {
 })
 ```
 
-http-client also exports a base `fetch` function if you need it (i.e. don't want middleware).
-
 ## Top-level API
 
 #### `createFetch(...middleware)`
 
-Creates an [enhanced](#enhancefetchfetch) `fetch` function that is fronted by some middleware.
+Creates a `fetch` function that uses some [middleware](#middleware). Uses the global `fetch` function to actually make the request.
 
 #### `createStack(...middleware)`
 
-Combines several middleware into one, in the same order they are provided as arguments. Use this function to create re-usable [middleware stacks](#stacks).
+Combines several middleware into one, in the same order they are provided as arguments. Use this function to create re-usable [middleware stacks](#stacks) or if you don't want to use a global `fetch` function.
 
-#### `enhanceFetch(fetch)`
+#### `enableRecv(fetch)`
 
-Returns an "enhanced" version of the given `fetch` function that uses an array of transforms in `options.responseHandlers` to modify the response after it is received.
-
-#### `fetch([input], [options])`
-
-An [enhanced](#enhancefetchfetch) `fetch` function. Use this directly if you don't need any middleware.
-
-#### `onResponse(handler)`
-
-A helper for creating middleware that enhances the `response` object in some way. The `handler` function should return the new response value, or a promise for it. Response handlers run in the order they are defined.
+Returns an "enhanced" version of the given `fetch` function that uses an array of transforms in `options.responseHandlers` to modify the response after it is received. This is only really useful when using [stacks](#stacks) directly instead of the global `fetch` function.
 
 ## Middleware
 
@@ -222,6 +212,19 @@ Note: Some parsers may not be available when using a `fetch` polyfill. In partic
 
 Adds the data in the given object (or string) to the query string of the request URL.
 
+#### `recv(handler)`
+
+Used to handle the `response` in some way. The `handler` function should return the new response value, or a promise for it. Response handlers run in the order they are defined.
+
+```js
+import { createFetch, recv } from 'http-client'
+
+const fetch = createFetch(
+  recv(response => (console.log('runs first'), response)),
+  recv(response => (console.log('runs second'), response))
+)
+```
+
 #### `requestInfo()`
 
 Adds `requestURL` and `requestOptions` properties to the response (or error) object so you can inspect them. Mainly useful for testing/debugging (should be put last in the list of middleware).
@@ -241,12 +244,12 @@ fetch(input).then(response => {
 
 ## Stacks
 
-Middleware may be combined together into re-usable middleware "stacks" using `createStack`. A stack is itself a middleware that is composed of one or more other pieces of middleware.
+Middleware may be combined together into re-usable middleware "stacks" using `createStack`. A stack is itself a middleware that is composed of one or more other pieces of middleware. Thus, you can pass a stack directly to `createFetch` as if it were any other piece of middleware.
 
 This is useful when you have a common set of functionality that you'd like to share between several different `fetch` methods, e.g.:
 
 ```js
-import { createStack, createFetch, header, base, parse } from 'http-client'
+import { createFetch, createStack, header, base, parse, query } from 'http-client'
 
 const commonStack = createStack(
   header('X-Auth-Key', key),
@@ -268,14 +271,14 @@ const fetchSinceBeginningOf2015 = createFetch(
 Stacks are also useful when you don't have a global `fetch` function, e.g. in node. In those cases, you can still use http-client middleware and supply your own `fetch` (we recommend [node-fetch](https://www.npmjs.com/package/node-fetch)) function directly, but make sure you "enhance" it first:
 
 ```js
-const { enhanceFetch, createStack, header, base } = require('http-client')
+const { createStack, enableRecv, header, base } = require('http-client')
 
 // We need to "enhance" node-fetch so it knows how to
-// handle responses correctly. Specifically, enhanceFetch
+// handle responses correctly. Specifically, enableRecv
 // gives a fetch function the ability to run response
-// handlers registered with onResponse (which parse,
-// used below, uses behind the scenes).
-const fetch = enhanceFetch(
+// handlers registered with recv (which parse, used below,
+// uses behind the scenes).
+const fetch = enableRecv(
   require('node-fetch')
 )
 

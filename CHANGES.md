@@ -1,3 +1,7 @@
+## HEAD
+
+- Rename `onResponse` to `recv` and `enhanceFetch` to `enableRecv`. This makes the association more clear.
+
 ## [v4.2.0]
 > Sep 29, 2016
 
