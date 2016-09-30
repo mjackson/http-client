@@ -69,7 +69,7 @@ Combines several middleware into one, in the same order they are provided as arg
 
 #### `enableRecv(fetch)`
 
-Returns an "enhanced" version of the given `fetch` function that uses an array of transforms in `options.responseHandlers` to modify the response after it is received. This is only really useful when using [stacks](#stacks) directly instead of the global `fetch` function.
+Returns an "enhanced" version of the given `fetch` function that knows how to run response handlers registered using [`recv`](#recvhandler). This is only really useful when using [stacks](#stacks) directly instead of `createFetch`.
 
 ## Middleware
 
