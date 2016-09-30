@@ -24,10 +24,9 @@ Then, use as you would anything else:
 
 ```js
 // using ES6 modules
-import { fetch, createFetch } from 'http-client'
+import { createFetch } from 'http-client'
 
 // using CommonJS modules
-var fetch = require('http-client').fetch
 var createFetch = require('http-client').createFetch
 ```
 
