@@ -197,6 +197,16 @@ export const handleResponse = recv
 export const onResponse = recv
 
 /**
+ * Throws an error if the request takes longer
+ * than the specified timeout to complete
+ */
+export const timeout = (milliseconds) =>
+  (fetch, input, options = {}) => new Promise((resolve, reject) => {
+    fetch(input, options).then(resolve)
+    setTimeout(() => reject(new Error(`timeout ${milliseconds}ms`)), milliseconds)
+  })
+
+/**
  * Reads the response stream to completion, parses its content
  * using the given parser, and adds the result to response.body.
  */
