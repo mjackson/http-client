@@ -48,7 +48,7 @@ import { createFetch, base, accept, parse } from 'http-client'
 const fetch = createFetch(
   base('https://api.stripe.com/v1'),  // Prefix all request URLs
   accept('application/json'),         // Set "Accept: application/json" in the request headers
-  parse('json')                       // Read the response as JSON and put it in response.body
+  parse('json')                       // Read the response as JSON and put it in response.decodedBody
 )
 
 fetch('/customers/5').then(response => {
@@ -200,9 +200,10 @@ const fetch = createFetch(
 )
 ```
 
-#### `parse(parser, as = 'body')`
+#### `parse(parser, as = 'decodedBody')`
 
-Reads the response body to completion, parses the response, and puts the result on `response.body` (or whatever `as` is). `parser` must be the name of a valid [Body](https://developer.mozilla.org/en-US/docs/Web/API/Body) parsing method. The following parsers are available in [the spec](https://fetch.spec.whatwg.org/#body-mixin):
+Reads the response body to completion, parses the response, and puts the result in `response.decodedBody` (or 
+whatever `as` is). `parser` must be the name of a valid [Body](https://developer.mozilla.org/en-US/docs/Web/API/Body) parsing method. The following parsers are available in [the spec](https://fetch.spec.whatwg.org/#body-mixin):
 
 - `arrayBuffer`
 - `blob`
@@ -218,7 +219,7 @@ const fetch = createFetch(
 )
 
 fetch(input).then(response => {
-  console.log(response.body)
+  console.log(response.decodedBody)
 })
 ```
 

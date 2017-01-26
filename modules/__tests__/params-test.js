@@ -16,7 +16,7 @@ describe('params', () => {
   describe('when used with a POST request', () => {
     it('sets the body of the request to a URL-encoded version of the object', () => {
       params({ hello: 'world' })(echo, '/', { method: 'POST' }).then(({ options }) =>
-        expect(options.body).toEqual('hello=world')
+        expect(options.decodedBody).toEqual('hello=world')
       )
     })
 

@@ -11,7 +11,7 @@ describe('parse("json")', () => {
   describe('by default', () => {
     it('sets the body property of the response', () =>
       parse('json')(echoJSON({ hello: 'world' })).then(response =>
-        expect(response.body).toEqual({ hello: 'world' })
+        expect(response.decodedBody).toEqual({ hello: 'world' })
       )
     )
   })

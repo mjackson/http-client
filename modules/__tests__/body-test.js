@@ -11,7 +11,7 @@ describe('body', () => {
 
     it('sets the body of the request', () => {
       body(asciiString)(echo).then(({ options }) =>
-        expect(options.body).toEqual(asciiString)
+        expect(options.decodedBody).toEqual(asciiString)
       )
     })
 
@@ -37,7 +37,7 @@ describe('body', () => {
 
     it('sets the body of the request', () => {
       body(multiByteString)(echo).then(({ options }) =>
-        expect(options.body).toEqual(multiByteString)
+        expect(options.decodedBody).toEqual(multiByteString)
       )
     })
 

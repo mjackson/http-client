@@ -200,7 +200,7 @@ export const onResponse = recv
  * Reads the response stream to completion, parses its content
  * using the given parser, and adds the result to response.body.
  */
-export const parse = (parser, as = 'body') =>
+export const parse = (parser, as = 'decodedBody') =>
   recv(response => {
     if (as in response)
       return response[as]
