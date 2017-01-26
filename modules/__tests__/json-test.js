@@ -7,7 +7,7 @@ const echo = (input, options) =>
 describe('json', () => {
   it('sets the body of the request to JSON', () => {
     json({ hello: 'world' })(echo).then(({ options }) =>
-      expect(options.body).toEqual('{"hello":"world"}')
+      expect(options.decodedBody).toEqual('{"hello":"world"}')
     )
   })
 

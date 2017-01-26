@@ -11,7 +11,7 @@ describe('parse("text")', () => {
   describe('by default', () => {
     it('sets the body property of the response', () =>
       parse('text')(echoText('hello world')).then(response =>
-        expect(response.body).toEqual('hello world')
+        expect(response.decodedBody).toEqual('hello world')
       )
     )
   })

@@ -1,3 +1,9 @@
+## [v5.0.0]
+> TBD
+
+- Change default 'as' for the parse middleware to prevent returning `Response#body` (a `ReadableStream` without a 
+`body` property) as the response
+
 ## [v4.3.0]
 > Sep 30, 2016
 
