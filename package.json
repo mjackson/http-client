@@ -24,7 +24,7 @@
     "babel-core": "^6.5.2",
     "babel-eslint": "^7.0.0",
     "babel-loader": "^6.2.3",
-    "babel-preset-es2015": "^6.5.0",
+    "babel-preset-es2015": "^6.24.0",
     "es6-promise": "^4.0.3",
     "eslint": "^3.2.2",
     "eslint-plugin-import": "^2.0.0",
